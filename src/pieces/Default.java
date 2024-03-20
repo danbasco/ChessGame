@@ -5,7 +5,6 @@
  * 
  */
 
-
 package pieces;
 
 public class Default {

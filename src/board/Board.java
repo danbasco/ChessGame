@@ -24,7 +24,6 @@ public class Board{
 
     }
     
-
     //TODO getPiece
 
     public void printBoard(){
