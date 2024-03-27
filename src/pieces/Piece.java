@@ -6,33 +6,46 @@
  */
 
 package pieces;
+import javax.swing.JLabel;
 
-public class Default {
+public class Piece extends JLabel{
     
-    protected int x; //PROTECTED PARA APENAS AS CLASSES QUE USAM EXTENDS POSSAM ACESSAR OS DADOS COM SUPER
-    protected int y;
-    protected int color; // COR 0 = BRANCO, COR 1 = PRETO
+    private int x; //PROTECTED PARA APENAS AS CLASSES QUE USAM EXTENDS POSSAM ACESSAR OS DADOS COM SUPER
+    private int y;
+    private int color; // COR 0 = BRANCO, COR 1 = PRETO
 
+    public Piece(int[] cords, int color){
 
-    public Default(int[] cords, int color){
-        this.x = cords[0];
-        this.y = cords[1];
+        setPos(cords);
         this.color = color; 
+
     }
 
+    public Piece(){
+
+    }
 
     public int[] getPos(){
         return new int[]{this.x, this.y}; //FUNÇÃO PADRÃO PARA RETORNAR A POSIÇÃO, ATRAVÉS DE VETORES
     }
 
-    public void setPos(int[] cords){
-        this.x = cords[0];
-        this.y = cords[1];
+    
+    public void setPos(int[] coords){
+        this.x = coords[0];
+        this.y = coords[1];
+    }
+
+    
+    public void movePos(int[] coords){
+        this.x = coords[0];
+        this.y = coords[1];
     }
 
     public char getSym(){
         return ' '; //PARA PRINTAR NO TABULEIRO, CADA PEÇA TEM UM SIMBOLO UNICO, QUE USANDO @OVERRIDE ELE CHAMA O SIMBOLO ESPECIFICO DE CADA OBJETO
     }
+
+    //TODO eatpiece
 
 
 }
