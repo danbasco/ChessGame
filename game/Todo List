@@ -1,0 +1,26 @@
+TODO List-
+
+1. Criar classe Jogador
+	- Nome, cor
+
+	1.1. Jogador move a peça no tabuleiro
+
+2. Criar classe das peças
+
+	- Cavalo
+	- Torre
+	- Bispo
+	- Rainha
+	- Rei
+	
+	
+3. Casas
+	
+	- Casa possui peça
+	- Função getpos
+	- Mover peça
+	
+	(Possibilidade de implementar JLabel para criar as casas graficamente)
+	
+	3.1 Modificar a matriz do tabuleiro para casas, não peças
+	

@@ -32,6 +32,7 @@ public class Board extends JFrame{
 
         for(int i = 0; i<8; i++)this.setPiece(new Pawn(new int[]{1,i}, 1)); //CRIANDO OS PEOES
         for(int i = 0; i<8; i++)this.setPiece(new Pawn(new int[]{6,i}, 0));
+        this.setPiece(new Rook(new int[] {0, 0}, 0));
 
     }
     
@@ -57,7 +58,7 @@ public class Board extends JFrame{
         
     }
 
-    public void movePiece(int[] coords, int[] final_pos){
+    public boolean movePiece(int[] coords, int[] final_pos, int turn){
 
         Piece piece = getPiece(coords);
 
@@ -67,20 +68,41 @@ public class Board extends JFrame{
             try{Thread.sleep(5000);}
             catch(Exception e){}
 
-            return;
+            return false;
 
         }
         
         if(getPiece(final_pos) == null){ //Verifica se a casa que vai mover está livre, caso contrário chama a função de comer peça e verifica se é possivel
+        	
+        	if(turn%2 == piece.getColor()) {
+        		
+        		piece.movePos(final_pos);
+        		clearPiece(coords);
+        		setPiece(piece);
+        		
+        	}
+        	else {
+        		
+        		 System.out.println("Você não pode mover essa peça!");
+        		 System.out.println("Cor: " + piece.getColor());
+        		 System.out.println("Vez: " + turn);
 
-            piece.movePos(final_pos);
-            clearPiece(coords);
-            setPiece(piece);
+                 try{
+                     Thread.sleep(5000); 
+
+                 }
+                 catch(Exception InterruptedException){
+                     System.out.println("Erro.");
+                 }
+                 return false;
+        	}
 
         }
 
         //TODO eat piece
-
+        
+        
+        return true;
     }
 
 

@@ -14,7 +14,8 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         
-
+        int turn = 0;
+        
         do{
 
             System.out.print("\033[H\033[2J"); 
@@ -28,7 +29,10 @@ public class Main {
             posf[1] = sc.nextInt();
             posf[0] = sc.nextInt();
 
-            board.movePiece(posi, posf);
+            if(board.movePiece(posi, posf, turn)) {
+            	turn++;
+            }
+            
 
         }
         while(game);

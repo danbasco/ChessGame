@@ -44,6 +44,11 @@ public class Piece extends JLabel{
     public char getSym(){
         return ' '; //PARA PRINTAR NO TABULEIRO, CADA PEÇA TEM UM SIMBOLO UNICO, QUE USANDO @OVERRIDE ELE CHAMA O SIMBOLO ESPECIFICO DE CADA OBJETO
     }
+    
+    
+    public int getColor() {
+    	return this.color;
+    }
 
     //TODO eatpiece
 
