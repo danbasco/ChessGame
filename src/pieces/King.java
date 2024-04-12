@@ -1,12 +1,13 @@
 package pieces;
+import colors.*;
 
 public class King extends Piece{
     
     private char symbol;
-	public King(int color) {
+	public King(Cores color) {
 		super(color);
 		
-		if(color == 0)this.symbol = '\u2654';
+		if(color == Cores.WHITE)this.symbol = '\u2654';
 		else this.symbol = '\u265A';
 	}
 	

@@ -5,14 +5,17 @@
  */
 
 package pieces;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import colors.*;
 
 public class Piece extends JLabel{
     
 
-    private int color; // COR 0 = BRANCO, COR 1 = PRETO
+	private ImageIcon icon;
 
-    public Piece(int color){
+    private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
+    public Piece(Cores color){
 
         this.color = color; 
 
@@ -24,10 +27,13 @@ public class Piece extends JLabel{
     }
     
     
-    public int getColor() {
+    public Cores getColor() {
     	return this.color;
     }
-
+    
+    public ImageIcon getIcon() {
+    	return null;
+    }
     //TODO eatpiece
 
 

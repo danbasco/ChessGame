@@ -1,12 +1,13 @@
 package pieces;
+import colors.*;
 
 public class Queen extends Piece{
 
     private char symbol;
-	public Queen(int color) {
+	public Queen(Cores color) {
 		super(color);
 		
-		if(color == 0)this.symbol = '\u2655';
+		if(color == Cores.WHITE)this.symbol = '\u2655';
 		else this.symbol = '\u265B';
 	}
 	

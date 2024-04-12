@@ -1,12 +1,13 @@
 package pieces;
+import colors.*;
 
 public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA PEÇA DEFAULT, Q É O MODELO
     
     private char symbol;
-    public Pawn(int color){
+    public Pawn(Cores color){
         super(color);
         
-        if(color == 0)this.symbol = '\u2659'; //CARACTERES EM UNICODE PARA PRINTAR O EMOJI DAS PEÇAS
+        if(color == Cores.WHITE)this.symbol = '\u2659'; //CARACTERES EM UNICODE PARA PRINTAR O EMOJI DAS PEÇAS
         else this.symbol = '\u265F';
         
     }
