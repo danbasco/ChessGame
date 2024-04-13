@@ -15,15 +15,9 @@ import java.awt.Color;
 import colors.*;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import java.awt.Font;
 
-import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 
 public class Board extends JFrame {
 
@@ -263,7 +257,7 @@ public class Board extends JFrame {
 		contentPane.add(sidePanel);
 		
 		JLabel sidePanelIMG = new JLabel("");
-		sidePanelIMG.setIcon(new ImageIcon(Board.class.getResource("/imgs/board/SidePanel.png")));
+		sidePanelIMG.setIcon(new ImageIcon(Board.class.getResource("/imgs/boardi/SidePanel.png")));
 		sidePanel.add(sidePanelIMG);
 		
 		JLabel bNum = new JLabel("b");

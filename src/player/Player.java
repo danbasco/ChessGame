@@ -1,13 +1,14 @@
-package main;
+package player;
 //import pieces.*;
+import colors.Cores;
 
 public class Player {
 
 
-    private int color; // COR 0 = BRANCO, COR 1 = PRETO
+    private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
     private String name;
 
-    Player(String name, int color){
+    Player(String name, Cores color){
         this.color = color;
         this.name = name;
     }
@@ -18,7 +19,7 @@ public class Player {
     }
 
 
-    public int getColor(){
+    public Cores getColor(){
         return color;
     }
 

@@ -12,12 +12,14 @@ import colors.*;
 public class Piece extends JLabel{
     
 
+	private static final long serialVersionUID = 1L;
+
 	private ImageIcon icon;
 
     private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
     public Piece(Cores color){
 
-        this.color = color; 
+        this.color = color;
 
     }
 
@@ -32,7 +34,7 @@ public class Piece extends JLabel{
     }
     
     public ImageIcon getIcon() {
-    	return null;
+    	return icon;
     }
     //TODO eatpiece
 

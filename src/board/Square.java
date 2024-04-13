@@ -75,14 +75,14 @@ public class Square extends JPanel implements MouseListener{
 		switch(qtLines%2) {
 		case 0:
 		
-			if(qtSquare%2 == 0)this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/board/dark.png"))); 
-			else this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/board/light.png")));
+			if(qtSquare%2 == 0)this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png"))); 
+			else this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png")));
 			break;
 			
 		case 1:
 			
-			if(qtSquare%2 == 0)this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/board/light.png"))); 
-			else this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/board/dark.png")));
+			if(qtSquare%2 == 0)this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png"))); 
+			else this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png")));
 			break;
 			
 		}
