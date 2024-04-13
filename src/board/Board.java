@@ -17,7 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Font;
+
+import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class Board extends JFrame {
 

@@ -18,6 +18,7 @@ public class Square extends JPanel implements MouseListener{
 	private static int qtLines;
 	private JLabel lblNewLabel;
 	
+	private JLabel pieceIcon;
 	private Piece piece;
 	/**
 	 * Create the panel.
@@ -48,16 +49,22 @@ public class Square extends JPanel implements MouseListener{
 		setLayout(null);
 		
 		this.lblNewLabel = new JLabel("");
-		
-		setIcon();
-		
 		this.lblNewLabel.addMouseListener(this);
+		this.pieceIcon = new JLabel("");
+		this.pieceIcon.addMouseListener(this);
+		
+		setIcons();
+		
+		this.pieceIcon.setBounds(0, 0, 100, 100);
+		add(this.pieceIcon);
+		
 		this.lblNewLabel.setBounds(0, 0, 100, 100);
 		add(this.lblNewLabel);
+		
 		qtSquare++;
 		
 	}
-	private void setIcon() {
+	private void setIcons() {
 		
 		if(qtSquare == 8) {
 			qtSquare = 0;
@@ -79,13 +86,17 @@ public class Square extends JPanel implements MouseListener{
 			break;
 			
 		}
+		
+		if(this.piece != null)this.pieceIcon.setIcon(piece.getIcon());
+		else this.pieceIcon.setIcon(null);
 			
 	}
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(piece.getSym());
+		if(piece != null)System.out.println(piece.getSym());
+		else System.out.println("Casa vazia!");
 		
 	}
 
