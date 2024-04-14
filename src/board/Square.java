@@ -14,12 +14,18 @@ import javax.swing.ImageIcon;
 public class Square extends JPanel implements MouseListener{
 
 	private static final long serialVersionUID = 1L;
+	
 	private static int qtSquare;
 	private static int qtLines;
-	private JLabel lblNewLabel;
+	
+	private JLabel sqrIcon;
 	
 	private JLabel pieceIcon;
 	private Piece piece;
+	
+	private static boolean clickedBool;
+	
+	private JLabel clickedIcon;
 	/**
 	 * Create the panel.
 	 */
@@ -30,6 +36,7 @@ public class Square extends JPanel implements MouseListener{
 		startLayout();
 		
 	}
+	
 	
 	
 	public Square(Piece piece) {
@@ -48,8 +55,12 @@ public class Square extends JPanel implements MouseListener{
 		
 		setLayout(null);
 		
-		this.lblNewLabel = new JLabel("");
-		this.lblNewLabel.addMouseListener(this);
+		this.sqrIcon = new JLabel("");
+		this.sqrIcon.addMouseListener(this);
+		
+		this.clickedIcon = new JLabel("");
+		this.clickedIcon.addMouseListener(this);
+		
 		this.pieceIcon = new JLabel("");
 		this.pieceIcon.addMouseListener(this);
 		
@@ -58,8 +69,11 @@ public class Square extends JPanel implements MouseListener{
 		this.pieceIcon.setBounds(0, 0, 100, 100);
 		add(this.pieceIcon);
 		
-		this.lblNewLabel.setBounds(0, 0, 100, 100);
-		add(this.lblNewLabel);
+		this.clickedIcon.setBounds(0,0,100,100);
+		add(this.clickedIcon);
+		
+		this.sqrIcon.setBounds(0, 0, 100, 100);
+		add(this.sqrIcon);
 		
 		qtSquare++;
 		
@@ -72,31 +86,32 @@ public class Square extends JPanel implements MouseListener{
 		}
 		
 		
-		switch(qtLines%2) {
+		switch(qtLines &1) {
+		
 		case 0:
 		
-			if(qtSquare%2 == 0)this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png"))); 
-			else this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png")));
+			if(qtSquare%2 == 0)this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png"))); 
+			else this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png")));
 			break;
 			
 		case 1:
 			
-			if(qtSquare%2 == 0)this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png"))); 
-			else this.lblNewLabel.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png")));
+			if(qtSquare%2 == 0)this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png"))); 
+			else this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png")));
 			break;
 			
 		}
 		
 		if(this.piece != null)this.pieceIcon.setIcon(piece.getIcon());
 		else this.pieceIcon.setIcon(null);
+		
+		this.clickedIcon.setIcon(null);
 			
 	}
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(piece != null)System.out.println(piece.getSym());
-		else System.out.println("Casa vazia!");
 		
 	}
 
@@ -127,5 +142,6 @@ public class Square extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	
 }
