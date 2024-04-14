@@ -1,94 +1,165 @@
 package board;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
-import pieces.*;
+import pieces.Bishop;
+import pieces.King;
+import pieces.Knight;
+import pieces.Pawn;
+import pieces.Queen;
+import pieces.Rook;
 
+import java.awt.Color;
+import colors.*;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
-public class Board extends JFrame{
+import javax.swing.ImageIcon;
 
-    private Square[][] board;
+public class Board extends JFrame {
 
-    public Board(){
-        this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
-        createBoard();
-    }
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private Square[][] board;
 
-
-    private void createBoard(){
+	/**
+	 * Create the frame.
+	 */
+	public Board() {
+		
+		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
+             
         
-        //PEÕES
-        for(int i = 0; i<8; i++){board[1][i] = new Square(new Pawn(1));}
-        for(int i = 0; i<8; i++){board[6][i] = new Square(new Pawn(0));}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1040, 868);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        //ESPAÇO VAZIO
-        for(int i = 0; i<8; i++){for(int j = 2; j<=5; j++){board[j][i] = new Square();}}
-
-        //PRETO
-
-        board[0][0] = new Square(new Rook(1)); //Criando manualmente cada posição do quadrado no tabuleiro
-        board[0][7] = new Square(new Rook(1));
-
-        board[0][1] = new Square(new Knight(1));
-        board[0][6] = new Square(new Knight(1));
-
-        board[0][2] = new Square(new Bishop(1));
-        board[0][5] = new Square(new Bishop(1));
-
-        board[0][3] = new Square(new Queen(1));
-        board[0][4] = new Square(new King(1));
-
-
-        board[7][0] = new Square(new Rook(0));
-        board[7][7] = new Square(new Rook(0));
-
-        board[7][1] = new Square(new Knight(0));
-        board[7][6] = new Square(new Knight(0));
-
-        board[7][2] = new Square(new Bishop(0));
-        board[7][5] = new Square(new Bishop(0));
-
-        board[7][3] = new Square(new Queen(0));
-        board[7][4] = new Square(new King(0));
-
-
-    }
-    
-    //TODO getPiece
-
-    public void printBoard(){ //Função básica de printar o tabuleiro
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		frontCabuloso();
+		
+		createBoard();
+		
+	
+	}
+	
+	private void createBoard() {
+		
+		// PRETO
+		
+        board[0][0] = new Square(new Rook(Cores.BLACK)); //Criando manualmente cada posição do quadrado no tabuleiro
+        board[0][0].setBounds(30, 0, 100, 100);
         
-        System.out.println("| 0 1 2 3 4 5 6 7");
-        for(int i = 0; i < 8; i++){
-           
-            System.out.print(i + " ");
-
-            for(int j = 0; j < 8; j++){
+        board[1][0] = new Square(new Knight(Cores.BLACK));
+        board[1][0].setBounds(130, 0, 100, 100);
         
-                if(this.board[i][j].getPiece() == null)System.out.print("."); //Pega a peça que está no tabuleiro e printa . se estiver vazia, caso contrario printa o emoji da peça
-                else System.out.print(this.board[i][j].getPiece().getSym());
-                System.out.print(" ");
-
-            }
-            System.out.println();
-    
+        board[2][0] = new Square(new Bishop(Cores.BLACK));
+        board[2][0].setBounds(230, 0, 100, 100);
+        
+        board[3][0] = new Square(new Queen(Cores.BLACK));
+        board[3][0].setBounds(330, 0, 100, 100);
+        
+        board[4][0] = new Square(new King(Cores.BLACK));
+        board[4][0].setBounds(430, 0, 100, 100);
+        
+        board[5][0] = new Square(new Bishop(Cores.BLACK));
+        board[5][0].setBounds(530, 0, 100, 100);
+        
+        board[6][0] = new Square(new Knight(Cores.BLACK));
+        board[6][0].setBounds(630, 0, 100, 100);
+        
+        board[7][0] = new Square(new Rook(Cores.BLACK));
+        board[7][0].setBounds(730, 0, 100, 100);
+        
+		
+		// PEOES PRETOS
+        
+		for(int i = 0; i<8; i++){
+			
+			board[i][1] = new Square(new Pawn(Cores.BLACK));
+			board[i][1].setBounds(i*100+30, 100, 100, 100);
+			
+			}
+		
+		// ESPAÇO VAZIO
+		for(int y = 2; y<=5; y++){
+			for(int x = 0; x<8; x++){
+			
+				board[x][y] = new Square();
+				board[x][y].setBounds(100*x+30, 100*y, 100, 100);
+			
+			}
+		}
+		
+		// PEOES BRANCOS
+		
+		for(int i = 0; i<8; i++){
+			
+			board[i][6] = new Square(new Pawn(Cores.WHITE));
+			board[i][6].setBounds(i*100+30, 600, 100, 100);
+			
+			}
+		
+		// BRANCO
+		
+		
+		
+        board[0][7] = new Square(new Rook(Cores.WHITE)); //Criando manualmente cada posição do quadrado no tabuleiro
+        board[0][7].setBounds(30, 700, 100, 100);
+        
+        board[1][7] = new Square(new Knight(Cores.WHITE));
+        board[1][7].setBounds(130, 700, 100, 100);
+        
+        board[2][7] = new Square(new Bishop(Cores.WHITE));
+        board[2][7].setBounds(230, 700, 100, 100);
+        
+        board[3][7] = new Square(new Queen(Cores.WHITE));
+        board[3][7].setBounds(330, 700, 100, 100);
+        
+        board[4][7] = new Square(new King(Cores.WHITE));
+        board[4][7].setBounds(430, 700, 100, 100);
+        
+        board[5][7] = new Square(new Bishop(Cores.WHITE));
+        board[5][7].setBounds(530, 700, 100, 100);
+        
+        board[6][7] = new Square(new Knight(Cores.WHITE));
+        board[6][7].setBounds(630, 700, 100, 100);
+        
+        board[7][7] = new Square(new Rook(Cores.WHITE));
+        board[7][7].setBounds(730, 700, 100, 100);
+        
+        
+        
+        for(int y = 0; y<8; y++) {
+        	for(int x = 0; x<8; x++) {
+        		
+        		contentPane.add(board[x][y]);
+        		
+        	}
         }
-        
-    }
-
-    public Square getSquare(int[] coords){
-        return board[coords[0]][coords[1]]; //Pega a casa especifica quando passar as coordenadas
-    }
-
-
-    public void printSquare(int[] coords){
-        
-        
-        Piece piece = getSquare(coords).getPiece();
-        if(piece == null)System.out.println("Não tem nenhuma peça nessa coordenada!"); //printa uma peça especifica na coordenada
-
-        else System.out.println(piece.getSym());
-    }
-
-    
-
+	}
+	
+	private void frontCabuloso() {
+		
+		JLabel sideNum = new JLabel("");
+		sideNum.setIcon(new ImageIcon(Board.class.getResource("/imgs/boardi/sideNum.png")));
+		sideNum.setBounds(0, 0, 30, 800);
+		contentPane.add(sideNum);
+		
+		JLabel downLetters = new JLabel("");
+		downLetters.setIcon(new ImageIcon(Board.class.getResource("/imgs/boardi/downLetters.png")));
+		downLetters.setBounds(0, 800, 830, 30);
+		contentPane.add(downLetters);
+		
+		JLabel sidePanel = new JLabel("");
+		sidePanel.setIcon(new ImageIcon(Board.class.getResource("/imgs/boardi/sidePanel.jpg")));
+		sidePanel.setBounds(830, 0, 194, 830);
+		contentPane.add(sidePanel);
+	}
 }
+
