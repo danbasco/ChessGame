@@ -2,6 +2,9 @@ package main;
 import java.awt.EventQueue;
 
 import board.Board;
+import colors.Cores;
+import menu.*;
+import player.Player;
 
 public class Main {
 	
@@ -11,7 +14,8 @@ public class Main {
 				
 				try { // main
 					
-					
+					System.out.print("Digite o nome do player 1: ");
+					Player p1 = Menu.createPlayers(Cores.WHITE);
 					
 					Board frame = new Board();
 					frame.setVisible(true);

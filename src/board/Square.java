@@ -23,7 +23,7 @@ public class Square extends JPanel implements MouseListener{
 	private JLabel pieceIcon;
 	private Piece piece;
 	
-	private static boolean clickedBool;
+	// private static boolean clickedBool;
 	
 	private JLabel clickedIcon;
 	/**
