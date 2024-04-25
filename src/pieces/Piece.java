@@ -7,14 +7,14 @@
 package pieces;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import board.Coords;
 import colors.*;
 
-public class Piece extends JLabel{
+public abstract class Piece extends JLabel{
     
 
 	private static final long serialVersionUID = 1L;
-
-	private ImageIcon icon;
 
     private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
     public Piece(Cores color){
@@ -23,20 +23,16 @@ public class Piece extends JLabel{
 
     }
 
-   
-    public char getSym(){
-        return ' '; //PARA PRINTAR NO TABULEIRO, CADA PEÇA TEM UM SIMBOLO UNICO, QUE USANDO @OVERRIDE ELE CHAMA O SIMBOLO ESPECIFICO DE CADA OBJETO
-    }
-    
     
     public Cores getColor() {
     	return this.color;
     }
     
-    public ImageIcon getIcon() {
-    	return icon;
-    }
-    //TODO eatpiece
+    abstract public ImageIcon getIcon();
 
-
+    abstract public void movePiece();
+    
+    abstract public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2);
+    
+    
 }

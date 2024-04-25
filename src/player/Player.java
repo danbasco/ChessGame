@@ -1,5 +1,5 @@
 package player;
-//import pieces.*;
+import board.Square;
 import colors.Cores;
 
 public class Player {
@@ -8,7 +8,7 @@ public class Player {
     private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
     private String name;
 
-    Player(String name, Cores color){
+    public Player(String name, Cores color){
         this.color = color;
         this.name = name;
     }
@@ -24,6 +24,17 @@ public class Player {
     }
 
     //TODO move pieces
+    
+    public boolean movePieces(Square sq1, Square sq2) {
+    	
+    	if(sq1.getPiece().checkMove(sq1.getCoords(), sq2.getCoords()) && sq1.getCoords() != sq2.getCoords()) {
+    		
+    		sq2.updatePiece(sq1.getPiece());
+    		sq1.updatePiece(null);
+    		return true;
+    	}
+    	else return false;
+    }
 
 
     
