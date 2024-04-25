@@ -173,7 +173,7 @@ public class Board extends JFrame{
 			
 	        public void mouseClicked(MouseEvent e) {
 	            e.getSource();
-
+	            // TODO Implements Pair to get OBJ coordinates
 	        }
 
 	    };
