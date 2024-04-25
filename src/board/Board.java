@@ -14,9 +14,13 @@ import pieces.Rook;
 import colors.*;
 import javax.swing.JLabel;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.ImageIcon;
 
-public class Board extends JFrame {
+public class Board extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -135,6 +139,7 @@ public class Board extends JFrame {
         for(int y = 0; y<8; y++) {
         	for(int x = 0; x<8; x++) {
         		
+        		board[x][y].addMouseListener(umouseClicked());
         		contentPane.add(board[x][y]);
         		
         	}
@@ -157,6 +162,22 @@ public class Board extends JFrame {
 		sidePanel.setIcon(new ImageIcon(Board.class.getResource("/imgs/boardi/sidePanel.jpg")));
 		sidePanel.setBounds(830, 0, 194, 830);
 		contentPane.add(sidePanel);
+	}
+	
+
+
+	public MouseAdapter umouseClicked() {
+		
+		return new MouseAdapter() {
+			
+			
+	        public void mouseClicked(MouseEvent e) {
+	            e.getSource();
+
+	        }
+
+	    };
+	    
 	}
 }
 

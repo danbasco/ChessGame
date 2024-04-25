@@ -6,12 +6,9 @@ import pieces.Piece;
 
 import javax.swing.JLabel;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.ImageIcon;
 
-public class Square extends JPanel implements MouseListener{
+public class Square extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,13 +23,11 @@ public class Square extends JPanel implements MouseListener{
 	// private static boolean clickedBool;
 	
 	private JLabel clickedIcon;
-	/**
-	 * Create the panel.
-	 */
 	
 	public Square() {
 		
 		this.piece = null;
+
 		startLayout();
 		
 	}
@@ -56,13 +51,11 @@ public class Square extends JPanel implements MouseListener{
 		setLayout(null);
 		
 		this.sqrIcon = new JLabel("");
-		this.sqrIcon.addMouseListener(this);
 		
 		this.clickedIcon = new JLabel("");
-		this.clickedIcon.addMouseListener(this);
 		
 		this.pieceIcon = new JLabel("");
-		this.pieceIcon.addMouseListener(this);
+
 		
 		setIcons();
 		
@@ -108,40 +101,12 @@ public class Square extends JPanel implements MouseListener{
 		this.clickedIcon.setIcon(null);
 			
 	}
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-	}
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	public Piece getPiece() {
+		return this.piece;
+	}
+		
 	
 }
+	
+
