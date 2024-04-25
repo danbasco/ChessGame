@@ -8,7 +8,7 @@ import colors.*;
 public class Menu {
 	
 	
-	public static Player createPlayers(Cores color) {
+	public static Player[] createPlayers() {
 		
 		System.out.println("Digite o nome do jogador 1:");
 		Scanner sc = new Scanner(System.in);
@@ -18,9 +18,16 @@ public class Menu {
 		String name2 = sc.nextLine();
 		sc.close();
 		
-	
-		return new Player(name1, color);
-
+		
+		Player p1 = new Player(name1, Cores.WHITE);
+		Player p2 = new Player(name2, Cores.BLACK);
+		
+		Player[] ps = new Player[] {
+			p1,
+			p2
+		};
+		
+		return ps;
 		
 		
 	}

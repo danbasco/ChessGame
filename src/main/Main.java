@@ -2,10 +2,8 @@ package main;
 
 import java.awt.EventQueue;
 
-import board.Board;
-import colors.Cores;
-import menu.*;
-import player.Player;
+import board.BoardGame;
+import menu.Menu;
 
 public class Main {
 	
@@ -13,12 +11,9 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				
-				try { // main
+				try { // main				
 					
-					Player p1 = Menu.createPlayers(Cores.WHITE);
-					
-					
-					Board frame = new Board();
+					BoardGame frame = new BoardGame(Menu.createPlayers());
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setTitle("BongasChess");

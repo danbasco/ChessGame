@@ -7,6 +7,8 @@
 package pieces;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import board.Coords;
 import colors.*;
 
 public abstract class Piece extends JLabel{
@@ -29,6 +31,8 @@ public abstract class Piece extends JLabel{
     abstract public ImageIcon getIcon();
 
     abstract public void movePiece();
+    
+    abstract public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2);
     
     
 }

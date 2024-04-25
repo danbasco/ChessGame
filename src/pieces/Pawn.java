@@ -1,6 +1,7 @@
 package pieces;
 import javax.swing.ImageIcon;
 
+import board.Coords;
 import colors.*;
 
 public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA PEÇA DEFAULT, Q É O MODELO
@@ -34,6 +35,12 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
 	public void movePiece() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
+		// TODO Auto-generated method stub
+		return true;
 	}
  
 

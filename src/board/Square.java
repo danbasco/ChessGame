@@ -1,111 +1,124 @@
 package board;
 
 import javax.swing.JPanel;
-
 import pieces.Piece;
 
-import javax.swing.JLabel;
-
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Square extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static int qtSquare;
-	private static int qtLines;
-	
-	private JLabel sqrIcon;
-	
-	private JLabel pieceIcon;
+	private JLabel sqrLabel;
+	private JLabel pieceLabel;
 	private Piece piece;
 	
-	// private static boolean clickedBool;
+	private static boolean clickedBool = false;
 	
 	private JLabel clickedIcon;
 	
-	public Square() {
+	Coords<Integer, Integer> coords;
+	
+	public Square(Coords<Integer, Integer> coords) {
 		
+		setCoords(coords);
 		this.piece = null;
-
 		startLayout();
 		
 	}
 	
 	
-	
-	public Square(Piece piece) {
+	public Square(Piece piece, Coords<Integer, Integer> coords) {
 		
+		setCoords(coords);
 		this.piece = piece;
 		startLayout();
 		
 	}
 	
-	
-	
 	// INICIALIZA E CONFIGURA A PARTE GRÁFICA
-	
 	
 	private void startLayout() {
 		
 		setLayout(null);
 		
-		this.sqrIcon = new JLabel("");
-		
+		this.sqrLabel = new JLabel("");
 		this.clickedIcon = new JLabel("");
-		
-		this.pieceIcon = new JLabel("");
+		this.pieceLabel = new JLabel("");
 
 		
 		setIcons();
 		
-		this.pieceIcon.setBounds(0, 0, 100, 100);
-		add(this.pieceIcon);
+		this.pieceLabel.setBounds(0, 0, 100, 100);
+		add(this.pieceLabel);
 		
 		this.clickedIcon.setBounds(0,0,100,100);
 		add(this.clickedIcon);
 		
-		this.sqrIcon.setBounds(0, 0, 100, 100);
-		add(this.sqrIcon);
+		this.sqrLabel.setBounds(0, 0, 100, 100);
+		add(this.sqrLabel);
 		
-		qtSquare++;
+		// qtSquare++;
 		
 	}
 	private void setIcons() {
 		
-		if(qtSquare == 8) {
-			qtSquare = 0;
-			qtLines++;
-		}
+		this.sqrLabel.setIcon(null);
 		
-		
-		switch(qtLines &1) {
-		
-		case 0:
-		
-			if(qtSquare%2 == 0)this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png"))); 
-			else this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png")));
-			break;
-			
-		case 1:
-			
-			if(qtSquare%2 == 0)this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/dark.png"))); 
-			else this.sqrIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/light.png")));
-			break;
-			
-		}
-		
-		if(this.piece != null)this.pieceIcon.setIcon(piece.getIcon());
-		else this.pieceIcon.setIcon(null);
+		if(this.piece != null)this.pieceLabel.setIcon(piece.getIcon());
+		else this.pieceLabel.setIcon(null);
 		
 		this.clickedIcon.setIcon(null);
 			
 	}
 	
+	private void updateIcons() {
+		
+		if(this.piece != null)this.pieceLabel.setIcon(piece.getIcon());
+		else this.pieceLabel.setIcon(null);
+	}
+	
+	
+	
+	
 	public Piece getPiece() {
 		return this.piece;
 	}
+	
+	public void updatePiece(Piece piece) {
+		this.piece = piece;
+		updateIcons();
+	}
+	
+	
+	
+	
+	public Coords<Integer, Integer> getCoords(){
+		return coords;
+	}
+	
+	public void setCoords(Coords<Integer, Integer> coords) {
+		this.coords = coords;
+	}
+	
+	
+	
+	
+	
+	public void switchSelected() {
+		if(!clickedBool) {
+			this.clickedIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/green.png")));
+			clickedBool = true;
 		
+		}
+		else {
+			
+			this.clickedIcon.setIcon(null);
+			clickedBool = false;
+			
+		}
+	}
 	
 }
 	
