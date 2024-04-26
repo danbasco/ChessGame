@@ -1,6 +1,6 @@
 package board;
 
-public class Coords <X1, Y1> {
+public class Coords <X1 extends Number, Y1 extends Number> {
 	
 	public X1 xc;
 	public Y1 yc;
@@ -11,3 +11,4 @@ public class Coords <X1, Y1> {
     }
 
 }
+

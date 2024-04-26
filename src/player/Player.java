@@ -25,7 +25,7 @@ public class Player {
     }
 
     //TODO move pieces
-    
+
     public boolean movePieces(Square sq1, Square sq2) {
     	
     	if(sq1.getPiece().checkMove(sq1.getCoords(), sq2.getCoords()) && sq1.getCoords() != sq2.getCoords()) {
@@ -43,18 +43,26 @@ public class Player {
 
     public boolean eatPieces(Square sq1, Square sq2) throws GameEndingException {
     	
+    	if(sq1.getPiece().getColor() == sq2.getPiece().getColor()) return false;
+    	
     	
     	if(sq2.getPiece().getClass() == King.class) {
-    		throw new Player.GameEndingException("teste");
+    		
+    		sq2.updatePiece(sq1.getPiece());
+    		sq1.updatePiece(null);
+    		throw new Player.GameEndingException("");
     	}
     	
-    	return false;
+		sq2.updatePiece(sq1.getPiece());
+		sq1.updatePiece(null);
+    	return true;
     }
-
-    
-    
+        
     public class GameEndingException extends Exception {
-    	public GameEndingException(String errorMessage) {
+
+		private static final long serialVersionUID = 1L;
+
+		public GameEndingException(String errorMessage) {
     		super(errorMessage);
     	}
     }

@@ -81,7 +81,6 @@ public class Square extends JPanel{
 	
 	
 	
-	
 	public Piece getPiece() {
 		return this.piece;
 	}

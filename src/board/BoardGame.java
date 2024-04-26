@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.Callable;
 
 import javax.swing.ImageIcon;
 
@@ -33,18 +32,17 @@ public class BoardGame extends JFrame{
 	
 	private static boolean leftClicked = false;
 	private static Square clickedSquare = null;
-	
-	private static boolean game = true;
-	
+
+	private boolean game;
 	
 	
 	public BoardGame(Player[] players) {
 		
 		this.players = players;
-				
+		this.game = true;
 		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
-             
         
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1040, 868);
 		contentPane = new JPanel();
@@ -54,7 +52,7 @@ public class BoardGame extends JFrame{
 		contentPane.setLayout(null);
 		
 		createBoard();
-		frontCabuloso();
+		
 				
 		
 	
@@ -157,15 +155,42 @@ public class BoardGame extends JFrame{
         		
         	}
         }
+        
+        frontCabuloso();
 	}
 	
-	// EVENTO QUANDO CLICA NO TABULEIRO
 	
+	public void restartBoard() {
+		
+		contentPane.removeAll();
+		
+		
+		for(int y = 0; y<8; y++) {
+			for(int x = 0; x<8; x++) {
+				
+				board[x][y].updatePiece(null);
+				
+				
+			}
+		}
+		super.repaint();
+		game = true;
+		createBoard();
+		
+		System.out.println("Novo jogo criado.");
+	}
+	
+	
+	
+	// EVENTO QUANDO CLICA NO TABULEIRO
+
 	private MouseAdapter umouseClicked() {
 		return new MouseAdapter(){
 	        public void mouseClicked(MouseEvent e) {
 	        	
-	           
+	        	if(!game) return;
+	        	
+	        	
 	        	if(e.getButton() == MouseEvent.BUTTON1) {
 	        		
 	        		if(!leftClicked) {
@@ -208,8 +233,14 @@ public class BoardGame extends JFrame{
 								}
 								
 								
-							} catch (GameEndingException e1) { // ASYNCIO EVENT TO FINISH GAME
-								System.out.println("andre delicia papai (andre que escreveu isso)");
+							} catch (GameEndingException e1) {
+								
+								System.out.println("Fim de jogo!");
+								game = false;
+								
+								
+								restartBoard();
+								
 							}
 	        			}
 	        			
@@ -228,9 +259,7 @@ public class BoardGame extends JFrame{
 	    
 	}
 	
-    
-	
-	
+
 	private void frontCabuloso() {
 		
 		JLabel sideNum = new JLabel("");
