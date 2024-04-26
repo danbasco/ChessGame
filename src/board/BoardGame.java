@@ -11,12 +11,14 @@ import pieces.Pawn;
 import pieces.Queen;
 import pieces.Rook;
 import player.Player;
+import player.Player.GameEndingException;
 import colors.*;
 
 import javax.swing.JLabel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.Callable;
 
 import javax.swing.ImageIcon;
 
@@ -32,11 +34,14 @@ public class BoardGame extends JFrame{
 	private static boolean leftClicked = false;
 	private static Square clickedSquare = null;
 	
+	private static boolean game = true;
+	
+	
+	
 	public BoardGame(Player[] players) {
 		
 		this.players = players;
-		
-		
+				
 		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
              
         
@@ -144,11 +149,11 @@ public class BoardGame extends JFrame{
         
         for(int y = 0; y<8; y++) {
         	for(int x = 0; x<8; x++) {
-        		
-        		board[x][y].addMouseListener(umouseClicked());
+  
         		board[x][y].setOpaque(false);
-        		
         		contentPane.add(board[x][y]);
+        		board[x][y].addMouseListener(umouseClicked());
+        			
         		
         	}
         }
@@ -156,8 +161,7 @@ public class BoardGame extends JFrame{
 	
 	// EVENTO QUANDO CLICA NO TABULEIRO
 	
-	public MouseAdapter umouseClicked() {
-		
+	private MouseAdapter umouseClicked() {
 		return new MouseAdapter(){
 	        public void mouseClicked(MouseEvent e) {
 	        	
@@ -183,12 +187,34 @@ public class BoardGame extends JFrame{
 	        		}
 	        	
 	        		else {
-	        		
+	        			
 	        			clickedSquare.switchSelected();
-	        			if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()))) {
-	        				leftClicked = false;
+	        			leftClicked = false;
+	        			
+	        			if(Square.class.cast(e.getComponent()).getPiece() == null) {
+	        			
+	        				
+	        				if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()))) {
 	        				turn++;
+	        				}
+	        			
 	        			}
+	        			
+	        			else {
+	        				
+	        				try {
+								if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()))) {
+								turn++;
+								}
+								
+								
+							} catch (GameEndingException e1) { // ASYNCIO EVENT TO FINISH GAME
+								System.out.println("andre delicia papai (andre que escreveu isso)");
+							}
+	        			}
+	        			
+	        			clickedSquare = null;
+	        			
 	        		}
 	        	
 	        	}
@@ -198,8 +224,11 @@ public class BoardGame extends JFrame{
 	        }
 	    };
 	    
+	    
+	    
 	}
 	
+    
 	
 	
 	private void frontCabuloso() {
