@@ -20,6 +20,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JList;
 
 public class BoardGame extends JFrame{
 
@@ -38,13 +41,17 @@ public class BoardGame extends JFrame{
 	
 	public BoardGame(Player[] players) {
 		
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setTitle("BongasChess");
+		
 		this.players = players;
 		this.game = true;
 		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
         
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1040, 868);
+		setBounds(100, 100, 1050, 868);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -260,7 +267,72 @@ public class BoardGame extends JFrame{
 	}
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void frontCabuloso() {
+		
+		
+		// PAINEL LATERAL
+		
+		JLabel name1 = new JLabel(players[0].getName());
+		name1.setForeground(new Color(255, 255, 255));
+		name1.setFont(new Font("Corbel", Font.BOLD, 15));
+		name1.setBounds(860, 695, 108, 30);
+		contentPane.add(name1);
+		
+		JLabel name2 = new JLabel(players[1].getName());
+		name2.setForeground(Color.WHITE);
+		name2.setFont(new Font("Corbel", Font.BOLD, 15));
+		name2.setBounds(860, 15, 108, 30);
+		contentPane.add(name2);
+		
+		JPanel timerW = new JPanel();
+		timerW.setBounds(860, 40, 150, 50);
+		contentPane.add(timerW);
+		timerW.setLayout(null);
+		timerW.setOpaque(false);
+		
+		JLabel timerWIc = new JLabel("");
+		timerWIc.setBounds(0, 0, 150, 50);
+		timerWIc.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/TimerIc.png")));
+		timerW.add(timerWIc);
+		
+		
+		JPanel timerB = new JPanel();
+		timerB.setBounds(860, 720, 150, 50);
+		contentPane.add(timerB);
+		timerB.setLayout(null);
+		timerB.setOpaque(false);
+		
+		JLabel timerBIc = new JLabel("");
+		timerBIc.setBounds(0, 0, 150, 50);
+		timerBIc.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/TimerIc.png")));
+		timerB.add(timerBIc);
+		
+		
+		
+		JPanel uVariables = new JPanel();
+		uVariables.setBounds(860, 180, 150, 460);
+		contentPane.add(uVariables);
+		uVariables.setLayout(null);
+		uVariables.setOpaque(false);
+		
+		JLabel uVarIcon = new JLabel("");
+		uVarIcon.setBounds(0, 0, 150, 460);
+		uVarIcon.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/uVariables.png")));
+		uVariables.add(uVarIcon);
+		
 		
 		JLabel sideNum = new JLabel("");
 		sideNum.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/sideNum.png")));
@@ -274,8 +346,10 @@ public class BoardGame extends JFrame{
 		
 		JLabel sidePanel = new JLabel("");
 		sidePanel.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/sidePanel.jpg")));
-		sidePanel.setBounds(830, 0, 194, 830);
+		sidePanel.setBounds(840, 0, 194, 830);
 		contentPane.add(sidePanel);
+		
+		
 		
 		
 		// Painel do tabuleiro
@@ -289,9 +363,18 @@ public class BoardGame extends JFrame{
 		boardLabel.setBounds(0, 0, 800, 800);
 		boardLabel.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/boardframe.png")));
 		boardPanel.add(boardLabel);
+		
+		JLabel divs = new JLabel("");
+		divs.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/temp.png")));
+		divs.setBounds(830, 0, 10, 830);
+		contentPane.add(divs);
+		
+		
+		
+		
+		
+		
+		
 	}
-	
-
-	
 }
 

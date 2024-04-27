@@ -1,21 +1,27 @@
 package main;
 
+
 import java.awt.EventQueue;
 
 import menu.*;
 
 public class Main {
 	
+	public static int qt;
+	
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 							
-					new Menu();				
+				new Menu();				
 							
 				
 			}
 		});
-
+		
+		
 	}
-
+	
+	
 }
