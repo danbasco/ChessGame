@@ -10,7 +10,7 @@ import pieces.Knight;
 import pieces.Pawn;
 import pieces.Queen;
 import pieces.Rook;
-import player.Player;
+import player.*;
 import player.Player.GameEndingException;
 import colors.*;
 
@@ -22,7 +22,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JList;
 
 public class BoardGame extends JFrame{
 
@@ -30,7 +29,7 @@ public class BoardGame extends JFrame{
 	private JPanel contentPane;
 	private Square[][] board;
 	
-	private static int turn = 0;
+	private int turn = 0;
 	private Player[] players;
 	
 	private static boolean leftClicked = false;
@@ -38,8 +37,11 @@ public class BoardGame extends JFrame{
 
 	private boolean game;
 	
+	private Timer timerW;
+	private Timer timerB;
 	
-	public BoardGame(Player[] players) {
+	
+	public BoardGame(Player[] players) throws InterruptedException {
 		
 		this.setVisible(true);
 		this.setResizable(false);
@@ -228,6 +230,7 @@ public class BoardGame extends JFrame{
 	        				
 	        				if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()))) {
 	        				turn++;
+	        				switchTimer();
 	        				}
 	        			
 	        			}
@@ -237,6 +240,7 @@ public class BoardGame extends JFrame{
 	        				try {
 								if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()))) {
 								turn++;
+								switchTimer();
 								}
 								
 								
@@ -266,18 +270,34 @@ public class BoardGame extends JFrame{
 	    
 	}
 	
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private void switchTimer() {
+		
+		switch(turn%2) {
+		
+		case 0:
+			timerW.ResumeTimer();
+			
+			try {
+				timerB.PauseTimer();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+			
+		case 1:
+			try {
+				timerW.PauseTimer();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			timerB.ResumeTimer();
+		
+		}
+	}
 	
 	
 	private void frontCabuloso() {
@@ -297,28 +317,36 @@ public class BoardGame extends JFrame{
 		name2.setBounds(860, 15, 108, 30);
 		contentPane.add(name2);
 		
-		JPanel timerW = new JPanel();
-		timerW.setBounds(860, 40, 150, 50);
-		contentPane.add(timerW);
-		timerW.setLayout(null);
-		timerW.setOpaque(false);
+		try {
+			timerW = new Timer(true);
+			timerW.setForeground(new Color(255, 255, 255));
+			timerW.setBounds(860, 710, 150, 50);
+			contentPane.add(timerW);
+			// timerW.setLayout(null);
+			timerW.setOpaque(false);
+			
+			timerB = new Timer(false);
+			timerB.setForeground(Color.WHITE);
+			timerB.setBounds(860, 40, 150, 50);
+			contentPane.add(timerB);
+			// timerB.setLayout(null);
+			timerB.setOpaque(false);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		JLabel timerWIc = new JLabel("");
-		timerWIc.setBounds(0, 0, 150, 50);
+		timerWIc.setBounds(860, 40, 150, 50);
 		timerWIc.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/TimerIc.png")));
-		timerW.add(timerWIc);
-		
-		
-		JPanel timerB = new JPanel();
-		timerB.setBounds(860, 720, 150, 50);
-		contentPane.add(timerB);
-		timerB.setLayout(null);
-		timerB.setOpaque(false);
+		contentPane.add(timerWIc);
 		
 		JLabel timerBIc = new JLabel("");
-		timerBIc.setBounds(0, 0, 150, 50);
+		timerBIc.setBounds(860, 720, 150, 50);
 		timerBIc.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/TimerIc.png")));
-		timerB.add(timerBIc);
+		contentPane.add(timerBIc);
+		
 		
 		
 		
@@ -360,6 +388,7 @@ public class BoardGame extends JFrame{
 		boardPanel.setLayout(null);
 		
 		JLabel boardLabel = new JLabel("");
+		boardLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		boardLabel.setBounds(0, 0, 800, 800);
 		boardLabel.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/boardframe.png")));
 		boardPanel.add(boardLabel);

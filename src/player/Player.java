@@ -8,10 +8,13 @@ public class Player {
 
     private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
     private String name;
+    
+    
 
-    public Player(String name, Cores color){
+    public Player(String name, Cores color, boolean starting) throws InterruptedException{
         this.color = color;
         this.name = name;
+        
     }
 
     public String getName(){
@@ -44,8 +47,6 @@ public class Player {
     public boolean eatPieces(Square sq1, Square sq2) throws GameEndingException {
     	
     	if(sq1.getPiece().getColor() == sq2.getPiece().getColor()) return false;
-    	
-    	
     	if(sq2.getPiece().getClass() == King.class) {
     		
     		sq2.updatePiece(sq1.getPiece());
@@ -66,5 +67,6 @@ public class Player {
     		super(errorMessage);
     	}
     }
-
+    
+    
 }

@@ -43,11 +43,11 @@ public class Menu extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 
 	
-	public Player[] createPlayers() {
+	public Player[] createPlayers() throws InterruptedException {
 		
 	
-		Player p1 = new Player(names1, Cores.WHITE);
-		Player p2 = new Player(names2, Cores.BLACK);
+		Player p1 = new Player(names1, Cores.WHITE, true);
+		Player p2 = new Player(names2, Cores.BLACK, false);
 		
 		Player[] ps = new Player[] {
 			p1,
@@ -72,7 +72,12 @@ public class Menu extends JFrame implements ActionListener{
 			
 		}
 		
-		new BoardGame(createPlayers());
+		try {
+			new BoardGame(createPlayers());
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		super.dispose();
 				
 		
