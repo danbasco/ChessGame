@@ -1,12 +1,14 @@
 package player;
 import board.Square;
+import board.events.EndGameEvent;
+import board.events.EventListener;
 import colors.Cores;
 import pieces.King;
 
 public class Player {
 
 
-    private Cores color; // COR 0 = BRANCO, COR 1 = PRETO
+    private Cores color; 
     private String name;
     
     
@@ -44,29 +46,21 @@ public class Player {
     
     
 
-    public boolean eatPieces(Square sq1, Square sq2) throws GameEndingException {
+    public boolean eatPieces(Square sq1, Square sq2) {
     	
     	if(sq1.getPiece().getColor() == sq2.getPiece().getColor()) return false;
     	if(sq2.getPiece().getClass() == King.class) {
     		
     		sq2.updatePiece(sq1.getPiece());
     		sq1.updatePiece(null);
-    		throw new Player.GameEndingException("");
+
+            EventListener.Trigger(new EndGameEvent().event());
     	}
     	
 		sq2.updatePiece(sq1.getPiece());
 		sq1.updatePiece(null);
     	return true;
     }
-        
-    public class GameEndingException extends Exception {
-
-		private static final long serialVersionUID = 1L;
-
-		public GameEndingException(String errorMessage) {
-    		super(errorMessage);
-    	}
-    }
-    
+           
     
 }

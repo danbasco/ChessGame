@@ -1,5 +1,6 @@
 package player;
 
+import board.events.*;
 
 import javax.swing.JPanel;
 
@@ -54,7 +55,6 @@ public class Timer extends JPanel {
 			}
 			
 			updateTime(x);			
-			System.out.println(String.format("%02d", timeMin) + ":" + String.format("%02d", timeSec));
 			
 			try {
 				Thread.sleep(1000);
@@ -63,6 +63,9 @@ public class Timer extends JPanel {
 				e.printStackTrace();
 			}
 		}
+		
+		// FIM DE TEMPO
+		EventListener.Trigger(new EndGameEvent().event());
 		
 		}
 		

@@ -39,7 +39,7 @@ public class Bishop extends Piece{
 	@Override
 	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
     
 

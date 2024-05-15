@@ -11,7 +11,6 @@ import pieces.Pawn;
 import pieces.Queen;
 import pieces.Rook;
 import player.*;
-import player.Player.GameEndingException;
 import colors.*;
 
 import javax.swing.JLabel;
@@ -35,10 +34,10 @@ public class BoardGame extends JFrame{
 	private static boolean leftClicked = false;
 	private static Square clickedSquare = null;
 
-	private boolean game;
+	private static boolean game;
 	
-	private Timer timerW;
-	private Timer timerB;
+	private static Timer timerW;
+	private static Timer timerB;
 	
 	
 	public BoardGame(Player[] players) throws InterruptedException {
@@ -48,7 +47,7 @@ public class BoardGame extends JFrame{
 		this.setTitle("BongasChess");
 		
 		this.players = players;
-		this.game = true;
+		game = true;
 		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
         
 		
@@ -61,8 +60,6 @@ public class BoardGame extends JFrame{
 		contentPane.setLayout(null);
 		
 		createBoard();
-		
-				
 		
 	
 	}
@@ -237,22 +234,12 @@ public class BoardGame extends JFrame{
 	        			
 	        			else {
 	        				
-	        				try {
-								if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()))) {
-								turn++;
-								switchTimer();
-								}
-								
-								
-							} catch (GameEndingException e1) {
-								
-								System.out.println("Fim de jogo!");
-								game = false;
-								
-								
-								restartBoard();
-								
+							if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()))) {
+							turn++;
+							switchTimer();
 							}
+								
+							
 	        			}
 	        			
 	        			clickedSquare = null;
@@ -260,7 +247,6 @@ public class BoardGame extends JFrame{
 	        		}
 	        	
 	        	}
-	        	
 	        	
 	        
 	        }
@@ -322,7 +308,6 @@ public class BoardGame extends JFrame{
 			timerW.setForeground(new Color(255, 255, 255));
 			timerW.setBounds(860, 710, 150, 50);
 			contentPane.add(timerW);
-			// timerW.setLayout(null);
 			timerW.setOpaque(false);
 			
 			timerB = new Timer(false);
@@ -398,12 +383,24 @@ public class BoardGame extends JFrame{
 		divs.setBounds(830, 0, 10, 830);
 		contentPane.add(divs);
 		
+	
 		
-		
-		
-		
-		
-		
+	}
+
+	public static void setGame(boolean gameSt){
+		game = gameSt;
+	}
+
+	public static void stopTimers(){
+
+		try{
+			timerB.PauseTimer();
+			timerW.PauseTimer();
+			}
+			
+		catch(Exception e){
+			System.out.println(e);
+		}
 	}
 }
 
