@@ -32,14 +32,15 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
     }
 
 	@Override
-	public void movePiece() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
-		// TODO Auto-generated method stub
+		
+		// WHITE
+		
+		
+		
+		// BLACK
+		
+		
 		return true;
 	}
  

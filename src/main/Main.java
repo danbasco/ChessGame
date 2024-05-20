@@ -7,7 +7,6 @@ import menu.*;
 
 public class Main {
 	
-	public static int qt;
 	
 	public static void main(String[] args) {
 		
