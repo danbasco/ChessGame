@@ -1,31 +1,26 @@
 package main;
 
+
 import java.awt.EventQueue;
 
-import board.BoardGame;
-import menu.Menu;
+import menu.*;
 
 public class Main {
 	
+	
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+							
+				new Menu();				
+							
 				
-				try { // main				
-					
-					BoardGame frame = new BoardGame(Menu.createPlayers());
-					frame.setVisible(true);
-					frame.setResizable(false);
-					frame.setTitle("BongasChess");
-					
-					
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		});
-
+		
+		
 	}
-
+	
+	
 }

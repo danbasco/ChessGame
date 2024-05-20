@@ -10,7 +10,7 @@ import pieces.Knight;
 import pieces.Pawn;
 import pieces.Queen;
 import pieces.Rook;
-import player.Player;
+import player.*;
 import colors.*;
 
 import javax.swing.JLabel;
@@ -19,6 +19,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.Color;
 
 public class BoardGame extends JFrame{
 
@@ -26,22 +28,31 @@ public class BoardGame extends JFrame{
 	private JPanel contentPane;
 	private Square[][] board;
 	
-	private static int turn = 0;
+	private int turn = 0;
 	private Player[] players;
 	
 	private static boolean leftClicked = false;
 	private static Square clickedSquare = null;
+
+	private static boolean game;
 	
-	public BoardGame(Player[] players) {
+	private static Timer timerW;
+	private static Timer timerB;
+	
+	
+	public BoardGame(Player[] players) throws InterruptedException {
+		
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setTitle("BongasChess");
 		
 		this.players = players;
-		
-		
+		game = true;
 		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
-             
         
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1040, 868);
+		setBounds(100, 100, 1050, 868);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -49,8 +60,6 @@ public class BoardGame extends JFrame{
 		contentPane.setLayout(null);
 		
 		createBoard();
-		frontCabuloso();
-				
 		
 	
 	}
@@ -144,24 +153,50 @@ public class BoardGame extends JFrame{
         
         for(int y = 0; y<8; y++) {
         	for(int x = 0; x<8; x++) {
-        		
-        		board[x][y].addMouseListener(umouseClicked());
+  
         		board[x][y].setOpaque(false);
-        		
         		contentPane.add(board[x][y]);
+        		board[x][y].addMouseListener(umouseClicked());
+        			
         		
         	}
         }
+        
+        frontCabuloso();
 	}
 	
-	// EVENTO QUANDO CLICA NO TABULEIRO
 	
-	public MouseAdapter umouseClicked() {
+	public void restartBoard() {
 		
+		contentPane.removeAll();
+		
+		
+		for(int y = 0; y<8; y++) {
+			for(int x = 0; x<8; x++) {
+				
+				board[x][y].updatePiece(null);
+				
+				
+			}
+		}
+		super.repaint();
+		game = true;
+		createBoard();
+		
+		System.out.println("Novo jogo criado.");
+	}
+	
+	
+	
+	// EVENTO QUANDO CLICA NO TABULEIRO
+
+	private MouseAdapter umouseClicked() {
 		return new MouseAdapter(){
 	        public void mouseClicked(MouseEvent e) {
 	        	
-	           
+	        	if(!game) return;
+	        	
+	        	
 	        	if(e.getButton() == MouseEvent.BUTTON1) {
 	        		
 	        		if(!leftClicked) {
@@ -183,26 +218,136 @@ public class BoardGame extends JFrame{
 	        		}
 	        	
 	        		else {
-	        		
+	        			System.out.println("X1: " + clickedSquare.getCoords().xc + ", Y1: " + clickedSquare.getCoords().yc);
+	                    System.out.println("X2: " + Square.class.cast(e.getComponent()).getCoords().xc + ", Y2: " + Square.class.cast(e.getComponent()).getCoords().yc);
+	            
 	        			clickedSquare.switchSelected();
-	        			if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()))) {
-	        				leftClicked = false;
+	        			leftClicked = false;
+	        			
+	        			if(Square.class.cast(e.getComponent()).getPiece() == null) {
+	        			
+	        				
+	        				if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()))) {
 	        				turn++;
+	        				switchTimer();
+	        				}
+	        			
 	        			}
+	        			
+	        			else {
+	        				
+							if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()))) {
+							turn++;
+							switchTimer();
+							}
+								
+							
+	        			}
+	        			
+	        			clickedSquare = null;
+	        			
 	        		}
 	        	
 	        	}
-	        	
 	        	
 	        
 	        }
 	    };
 	    
+	    
+	    
 	}
 	
 	
+	private void switchTimer() {
+		
+		switch(turn%2) {
+		
+		case 0:
+			timerW.ResumeTimer();
+			
+			try {
+				timerB.PauseTimer();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+			
+		case 1:
+			try {
+				timerW.PauseTimer();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			timerB.ResumeTimer();
+		
+		}
+	}
+	
 	
 	private void frontCabuloso() {
+		
+		
+		// PAINEL LATERAL
+		
+		JLabel name1 = new JLabel(players[0].getName());
+		name1.setForeground(new Color(255, 255, 255));
+		name1.setFont(new Font("Corbel", Font.BOLD, 15));
+		name1.setBounds(860, 695, 108, 30);
+		contentPane.add(name1);
+		
+		JLabel name2 = new JLabel(players[1].getName());
+		name2.setForeground(Color.WHITE);
+		name2.setFont(new Font("Corbel", Font.BOLD, 15));
+		name2.setBounds(860, 15, 108, 30);
+		contentPane.add(name2);
+		
+		try {
+			timerW = new Timer(true);
+			timerW.setForeground(new Color(255, 255, 255));
+			timerW.setBounds(860, 710, 150, 50);
+			contentPane.add(timerW);
+			timerW.setOpaque(false);
+			
+			timerB = new Timer(false);
+			timerB.setForeground(Color.WHITE);
+			timerB.setBounds(860, 40, 150, 50);
+			contentPane.add(timerB);
+			// timerB.setLayout(null);
+			timerB.setOpaque(false);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		JLabel timerWIc = new JLabel("");
+		timerWIc.setBounds(860, 40, 150, 50);
+		timerWIc.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/TimerIc.png")));
+		contentPane.add(timerWIc);
+		
+		JLabel timerBIc = new JLabel("");
+		timerBIc.setBounds(860, 720, 150, 50);
+		timerBIc.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/TimerIc.png")));
+		contentPane.add(timerBIc);
+		
+		
+		
+		
+		JPanel uVariables = new JPanel();
+		uVariables.setBounds(860, 180, 150, 460);
+		contentPane.add(uVariables);
+		uVariables.setLayout(null);
+		uVariables.setOpaque(false);
+		
+		JLabel uVarIcon = new JLabel("");
+		uVarIcon.setBounds(0, 0, 150, 460);
+		uVarIcon.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/uVariables.png")));
+		uVariables.add(uVarIcon);
+		
 		
 		JLabel sideNum = new JLabel("");
 		sideNum.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/sideNum.png")));
@@ -216,8 +361,10 @@ public class BoardGame extends JFrame{
 		
 		JLabel sidePanel = new JLabel("");
 		sidePanel.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/sidePanel.jpg")));
-		sidePanel.setBounds(830, 0, 194, 830);
+		sidePanel.setBounds(840, 0, 194, 830);
 		contentPane.add(sidePanel);
+		
+		
 		
 		
 		// Painel do tabuleiro
@@ -228,12 +375,34 @@ public class BoardGame extends JFrame{
 		boardPanel.setLayout(null);
 		
 		JLabel boardLabel = new JLabel("");
+		boardLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		boardLabel.setBounds(0, 0, 800, 800);
 		boardLabel.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/boardframe.png")));
 		boardPanel.add(boardLabel);
+		
+		JLabel divs = new JLabel("");
+		divs.setIcon(new ImageIcon(BoardGame.class.getResource("/imgs/boardi/temp.png")));
+		divs.setBounds(830, 0, 10, 830);
+		contentPane.add(divs);
+		
+	
+		
 	}
-	
 
-	
+	public static void setGame(boolean gameSt){
+		game = gameSt;
+	}
+
+	public static void stopTimers(){
+
+		try{
+			timerB.PauseTimer();
+			timerW.PauseTimer();
+			}
+			
+		catch(Exception e){
+			System.out.println(e);
+		}
+	}
 }
 

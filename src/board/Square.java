@@ -81,7 +81,6 @@ public class Square extends JPanel{
 	
 	
 	
-	
 	public Piece getPiece() {
 		return this.piece;
 	}
@@ -101,8 +100,6 @@ public class Square extends JPanel{
 	public void setCoords(Coords<Integer, Integer> coords) {
 		this.coords = coords;
 	}
-	
-	
 	
 	
 	

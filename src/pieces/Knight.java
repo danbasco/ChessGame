@@ -3,6 +3,7 @@ import javax.swing.ImageIcon;
 
 import board.Coords;
 import colors.*;
+import java.math.*;
 
 public class Knight extends Piece{
 
@@ -34,16 +35,18 @@ public class Knight extends Piece{
 
 
 	@Override
-	public void movePiece() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
-		// TODO Auto-generated method stub
-		return true;
+		
+		int XAbsolute = Math.abs(c2.xc - c1.xc);
+		int YAbsolute = Math.abs(c2.yc - c1.yc);
+		if((XAbsolute == 2 && YAbsolute == 1) || (XAbsolute == 1 && YAbsolute == 2)) 
+ {
+			return true;
+		}
+		
+		
+		return false;
+		
 	}
 
 

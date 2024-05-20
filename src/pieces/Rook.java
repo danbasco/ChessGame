@@ -29,16 +29,13 @@ public class Rook extends Piece{
 
 
 	@Override
-	public void movePiece() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
-		// TODO Auto-generated method stub
-		return true;
+		
+			if((( c2.xc > c1.xc || c2.xc < c1.xc) && c2.yc == c1.yc) || (c2.xc == c1.xc && (c2.yc > c1.yc || c2.yc < c1.yc))) {
+				return true;
+			}
+		return false;
+		
 	}
 	
 	
