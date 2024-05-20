@@ -8,7 +8,7 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
     
 	
 	private static final long serialVersionUID = 1L;
-	
+	private boolean firstMove = true;
 	
     private ImageIcon PawnIcon;
     
@@ -35,13 +35,36 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
 	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
 		
 		// WHITE
+		if(firstMove) {
+			this.firstMove = false;
+			if(this.getColor() == Cores.WHITE) {
+				if((c1.yc == (c2.yc +1) || c1.yc == (c2.yc +2)) && c1.xc == c2.xc) {
+				return true;
+				}
+			}
+			else {
+				if((c1.yc == (c2.yc -1) || c1.yc == (c2.yc -2)) && c1.xc == c2.xc) {
+					return true;
+				}
+			}
+			
+		}
 		
+		else {
+			if(this.getColor() == Cores.WHITE) {
+				if(c1.yc == (c2.yc +1) && c1.xc == c2.xc) {
+				return true;
+				}
+			}
+			else {
+				if(c1.yc == (c2.yc -1) && c1.xc == c2.xc) {
+					return true;
+				}
+			}
+		}
 		
-		
-		// BLACK
-		
-		
-		return true;
+		return false;
+	
 	}
  
 

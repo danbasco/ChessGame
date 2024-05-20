@@ -218,7 +218,9 @@ public class BoardGame extends JFrame{
 	        		}
 	        	
 	        		else {
-	        			
+	        			System.out.println("X1: " + clickedSquare.getCoords().xc + ", Y1: " + clickedSquare.getCoords().yc);
+	                    System.out.println("X2: " + Square.class.cast(e.getComponent()).getCoords().xc + ", Y2: " + Square.class.cast(e.getComponent()).getCoords().yc);
+	            
 	        			clickedSquare.switchSelected();
 	        			leftClicked = false;
 	        			

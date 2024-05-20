@@ -32,34 +32,37 @@ public class Player {
     //TODO move pieces
 
     public boolean movePieces(Square sq1, Square sq2) {
-    	
-    	if(sq1.getPiece().checkMove(sq1.getCoords(), sq2.getCoords()) && sq1.getCoords() != sq2.getCoords()) {
-    		
-    		
-    		sq2.updatePiece(sq1.getPiece());
-    		sq1.updatePiece(null);
-    		return true;
-    	}
-    	else return false;
+        
+        if(sq1.getPiece().checkMove(sq1.getCoords(), sq2.getCoords()) && sq1.getCoords() != sq2.getCoords()) {
+            
+                    
+            sq2.updatePiece(sq1.getPiece());
+            sq1.updatePiece(null);
+            return true;
+        }
+        else return false;
     }
     
     
     
 
     public boolean eatPieces(Square sq1, Square sq2) {
-    	
-    	if(sq1.getPiece().getColor() == sq2.getPiece().getColor()) return false;
-    	if(sq2.getPiece().getClass() == King.class) {
-    		
-    		sq2.updatePiece(sq1.getPiece());
-    		sq1.updatePiece(null);
+        
+        /*
+        if(sq1.getPiece().getColor() == sq2.getPiece().getColor()) return false;
+        if(sq2.getPiece().getClass() == King.class) {
+            
+            sq2.updatePiece(sq1.getPiece());
+            sq1.updatePiece(null);
 
             EventListener.Trigger(new EndGameEvent().event());
-    	}
-    	
-		sq2.updatePiece(sq1.getPiece());
-		sq1.updatePiece(null);
-    	return true;
+        }
+        
+        sq2.updatePiece(sq1.getPiece());
+        sq1.updatePiece(null);
+        
+        */
+        return false;
     }
            
     

@@ -31,15 +31,10 @@ public class Rook extends Piece{
 	@Override
 	public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
 		
-		
-		// WHITE
-		
-		
-		
-		// BLACK
-		
-		
-		return true;
+			if((( c2.xc > c1.xc || c2.xc < c1.xc) && c2.yc == c1.yc) || (c2.xc == c1.xc && (c2.yc > c1.yc || c2.yc < c1.yc))) {
+				return true;
+			}
+		return false;
 		
 	}
 	
