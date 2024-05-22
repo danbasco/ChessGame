@@ -5,6 +5,8 @@
  */
 
 package pieces;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -30,7 +32,10 @@ public abstract class Piece extends JLabel{
     
     abstract public ImageIcon getIcon();
     
-    abstract public boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2);
+    abstract protected boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2);
+    
+    abstract public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2);
+    
     
     
 }

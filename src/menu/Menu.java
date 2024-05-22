@@ -3,7 +3,7 @@ package menu;
 import javax.swing.JFrame;
 
 import player.*;
-
+import playsounds.Sounds;
 import colors.*;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -16,6 +16,10 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
 
 public class Menu extends JFrame implements ActionListener{
 	
@@ -72,8 +76,9 @@ public class Menu extends JFrame implements ActionListener{
 		}
 		
 		try {
+			Sounds.gameStart();
 			new BoardGame(createPlayers());
-		} catch (InterruptedException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -81,7 +86,6 @@ public class Menu extends JFrame implements ActionListener{
 				
 		
 	}
-	
 	
 	
 	private void frontCabuloso2() {
@@ -112,5 +116,52 @@ public class Menu extends JFrame implements ActionListener{
 		bongasmenu.setBounds(0, 0, 732, 702);
 		getContentPane().add(bongasmenu);
 		
+		JPanel olhoDireito = new JPanel();
+		olhoDireito.setBounds(536, 177, 52, 66);
+		getContentPane().add(olhoDireito);
+		
+		JPanel olhoEsquerdo = new JPanel();
+		olhoEsquerdo.setBounds(445, 177, 52, 66);
+		getContentPane().add(olhoEsquerdo);
+		
+		olhoDireito.addMouseListener(bongasEventDireito());
+		olhoEsquerdo.addMouseListener(bongasEventEsquerdo());
+		
+		
+	}
+	
+	
+	// OLHO DIREITO
+
+	
+	private MouseAdapter bongasEventDireito() {
+		return new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Sounds.plim();
+				} catch (Exception e1) {
+					System.out.println(e1);
+				
+			}
+			}
+		};
+	}
+	
+	
+	// OLHO ESQUERDO
+	
+	
+	
+	private MouseAdapter bongasEventEsquerdo() {
+		return new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Sounds.boing();
+				} catch (Exception e1) {
+					System.out.println(e1);
+				
+			}
+			}
+		};
 	}
 }

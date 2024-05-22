@@ -1,6 +1,7 @@
 package board.events;
 
 import board.BoardGame;
+import playsounds.Sounds;
 
 public class EndGameEvent{
 	
@@ -16,7 +17,12 @@ public class EndGameEvent{
 			@Override
 			public void EventCallBack(){
 
-				System.out.println("Fim de jogo!");
+				try {
+					Sounds.gameEnd();
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				} 
 				BoardGame.setGame(false);
 				BoardGame.stopTimers();
 				

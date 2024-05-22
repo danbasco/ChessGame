@@ -218,16 +218,14 @@ public class BoardGame extends JFrame{
 	        		}
 	        	
 	        		else {
-	        			System.out.println("X1: " + clickedSquare.getCoords().xc + ", Y1: " + clickedSquare.getCoords().yc);
-	                    System.out.println("X2: " + Square.class.cast(e.getComponent()).getCoords().xc + ", Y2: " + Square.class.cast(e.getComponent()).getCoords().yc);
-	            
+	        			
 	        			clickedSquare.switchSelected();
 	        			leftClicked = false;
 	        			
 	        			if(Square.class.cast(e.getComponent()).getPiece() == null) {
 	        			
 	        				
-	        				if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()))) {
+	        				if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()), getGame())) {
 	        				turn++;
 	        				switchTimer();
 	        				}
@@ -236,10 +234,14 @@ public class BoardGame extends JFrame{
 	        			
 	        			else {
 	        				
-							if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()))) {
-							turn++;
-							switchTimer();
-							}
+	        					
+	        				if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()), getGame())) {
+	        						
+	        					turn++;
+	        					switchTimer();
+	        						
+	        					
+	        				}
 								
 							
 	        			}
@@ -257,6 +259,23 @@ public class BoardGame extends JFrame{
 	    
 	    
 	}
+	
+	
+	public boolean checkSquare(Coords<Integer, Integer> c2) {
+        if(board[c2.xc][c2.yc].getPiece() == null) {
+            return true;
+        }
+        return false;
+    }
+	
+	
+	
+	public BoardGame getGame() {
+		return this;
+	}
+	
+	
+	
 	
 	
 	private void switchTimer() {
@@ -308,13 +327,13 @@ public class BoardGame extends JFrame{
 		try {
 			timerW = new Timer(true);
 			timerW.setForeground(new Color(255, 255, 255));
-			timerW.setBounds(860, 710, 150, 50);
+			timerW.setBounds(860, 715, 150, 50);
 			contentPane.add(timerW);
 			timerW.setOpaque(false);
 			
 			timerB = new Timer(false);
 			timerB.setForeground(Color.WHITE);
-			timerB.setBounds(860, 40, 150, 50);
+			timerB.setBounds(860, 35, 150, 50);
 			contentPane.add(timerB);
 			// timerB.setLayout(null);
 			timerB.setOpaque(false);
@@ -396,8 +415,10 @@ public class BoardGame extends JFrame{
 	public static void stopTimers(){
 
 		try{
+			
 			timerB.PauseTimer();
 			timerW.PauseTimer();
+			
 			}
 			
 		catch(Exception e){
