@@ -15,13 +15,12 @@ import playsounds.Sounds;
 
 public class Player {
 
-
     private Cores color; 
     private String name;
     
     
-
-    public Player(String name, Cores color, boolean starting) throws InterruptedException{
+    public Player(String name, Cores color){
+    	
         this.color = color;
         this.name = name;
         
@@ -90,30 +89,30 @@ public class Player {
     public boolean eatPieces(Square sq1, Square sq2, BoardGame t) {
         
         if(sq1.getPiece().getColor() == sq2.getPiece().getColor()) return false;	
-        if(this.movePieces(sq1, sq2, t)) return true;
+        if(sq1.getPiece().getClass() != Pawn.class && this.movePieces(sq1, sq2, t)) return true;
     
-        	else if(sq1.getPiece().getClass() == Pawn.class) { // CONDIÇÃO ÚNICA PARA O PEÃO, COME DIFERENTE
+        else if(sq1.getPiece().getClass() == Pawn.class) { // Condição única para o peão pois ele come diferente da movimentação
         		
         		
-        		Pawn p1 = (Pawn)sq1.getPiece();
+        	Pawn p1 = (Pawn)sq1.getPiece();
         		
-        		if(p1.checkEat(sq1.getCoords(), sq2.getCoords())) {
+        	if(p1.checkEat(sq1.getCoords(), sq2.getCoords())) {
         			
-        			if(sq2.getPiece().getClass() == King.class) {
-            			EventListener.Trigger(new EndGameEvent().event());
-            		}
+        		if(sq2.getPiece().getClass() == King.class) {
+            		EventListener.Trigger(new EndGameEvent().event());
+            	}
         			
-        			try {
-    					Sounds.onCapture();
-    				} catch (Exception e) {
+        		try {
+    				Sounds.onCapture();
+    			} catch (Exception e) {
     					// TODO Auto-generated catch block
-    					e.printStackTrace();
-    				} 
+    				e.printStackTrace();
+    			} 
         			
-        			sq2.updatePiece(sq1.getPiece());
-            		sq1.updatePiece(null);
+        		sq2.updatePiece(sq1.getPiece());
+            	sq1.updatePiece(null);
         			
-        			return true;
+        		return true;
         			
         		}
         			

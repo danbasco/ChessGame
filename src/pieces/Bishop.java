@@ -15,11 +15,11 @@ public class Bishop extends Piece{
 		super(color);
 		
 		if(color == Cores.WHITE) {
-			this.BishopIcon = new ImageIcon(Bishop.class.getResource("/imgs/pieces/white/bishop.png"));
+			this.BishopIcon = new ImageIcon("imgs/pieces/white/bishop.png");
 			
 		}
 		else {
-			this.BishopIcon = new ImageIcon(Bishop.class.getResource("/imgs/pieces/black/bishop.png"));
+			this.BishopIcon = new ImageIcon("imgs/pieces/black/bishop.png");
 		}
 	}
 	

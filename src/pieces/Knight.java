@@ -17,12 +17,12 @@ public class Knight extends Piece{
 		super(color);
 		
 		if(color == Cores.WHITE) {
-			this.KnightIcon = new ImageIcon(Knight.class.getResource("/imgs/pieces/white/knight.png"));
+			this.KnightIcon = new ImageIcon("imgs/pieces/white/knight.png");
 			
 		}
 		else {
 			
-			this.KnightIcon = new ImageIcon(Knight.class.getResource("/imgs/pieces/black/knight.png"));
+			this.KnightIcon = new ImageIcon("imgs/pieces/black/knight.png");
 		}
 		
 	}

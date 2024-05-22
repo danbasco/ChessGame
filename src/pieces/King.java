@@ -16,10 +16,10 @@ public class King extends Piece{
 		super(color);
 		
 		if(color == Cores.WHITE) {
-			this.KingIcon = new ImageIcon(Knight.class.getResource("/imgs/pieces/white/king.png"));
+			this.KingIcon = new ImageIcon("imgs/pieces/white/king.png");
 		}
 		else {
-			this.KingIcon = new ImageIcon(Knight.class.getResource("/imgs/pieces/black/king.png"));
+			this.KingIcon = new ImageIcon("imgs/pieces/black/king.png");
 		}
 	}
 	

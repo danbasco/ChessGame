@@ -16,10 +16,10 @@ public class Rook extends Piece{
 		super(color);
 		
 		if(color == Cores.WHITE) {
-			this.RookIcon = new ImageIcon(Rook.class.getResource("/imgs/pieces/white/rook.png"));
+			this.RookIcon = new ImageIcon("imgs/pieces/white/rook.png");
 		}
 		else {
-			this.RookIcon = new ImageIcon(Rook.class.getResource("/imgs/pieces/black/rook.png"));
+			this.RookIcon = new ImageIcon("imgs/pieces/black/rook.png");
 		}
 	}
 	

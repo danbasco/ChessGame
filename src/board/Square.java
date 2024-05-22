@@ -105,7 +105,7 @@ public class Square extends JPanel{
 	
 	public void switchSelected() {
 		if(!clickedBool) {
-			this.clickedIcon.setIcon(new ImageIcon(Square.class.getResource("/imgs/boardi/green.png")));
+			this.clickedIcon.setIcon(new ImageIcon("imgs/boardi/green.png"));
 			clickedBool = true;
 		
 		}

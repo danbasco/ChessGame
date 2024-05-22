@@ -21,20 +21,18 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-public class Menu extends JFrame implements ActionListener{
+public class Menu extends JFrame implements ActionListener { 
+	 
+	private JButton button; // Botão para começar o jogo
 	
-	private JButton button;
-	
-	private JTextField name1;
+	private JTextField name1; 
 	private JTextField name2;
 	
-	private String names1 = "Player 1";
-	private String names2 = "Player 2";
 	
-	public Menu() {
+	public Menu() { // Construtor do Menu, que vai criar a interface gráfica
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 712, 738);
+		this.setBounds(100, 100, 712, 738); // Tamanho do Menu
 		
 		this.setVisible(true);
 		this.setResizable(false);
@@ -45,12 +43,16 @@ public class Menu extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 
+	/* 
+	 * Essa função aqui vai criar os players, Player 1 e Player 2 e vai retornar um vetor
+	 * com os dois players criados
+	 */
 	
-	public Player[] createPlayers() throws InterruptedException {
+	public Player[] createPlayers(String n1, String n2){ 
 		
 	
-		Player p1 = new Player(names1, Cores.WHITE, true);
-		Player p2 = new Player(names2, Cores.BLACK, false);
+		Player p1 = new Player(n1, Cores.WHITE); // Player 1
+		Player p2 = new Player(n2, Cores.BLACK); // Player 2
 		
 		Player[] ps = new Player[] {
 			p1,
@@ -60,26 +62,37 @@ public class Menu extends JFrame implements ActionListener{
 		
 		return ps;
 		
-		
 	}
 
 	
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { // Evento para quando o botão de iniciar jogo for pressionado
+		
+		// Nomes default dos players caso nenhum tenha sido inserido
+		
+		String n1 = "Player 1"; 
+		String n2 = "Player 2";
 		
 		if(e.getSource() == button) {
 			
-			this.names1 = name1.getText();
-			this.names2 = name2.getText();
+			if(!name1.getText().equals("")) n1 = name1.getText();
+			if(!name2.getText().equals("")) n2 = name2.getText();
 			
 		}
 		
 		try {
+			
+			/**
+			 * Efeito sonoro especial para quando iniciar o jogo 
+			 * {@link playsounds.Sounds}
+			 */
+			
 			Sounds.gameStart();
-			new BoardGame(createPlayers());
+			new BoardGame(createPlayers(n1, n2));
+			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 		super.dispose();
@@ -112,7 +125,7 @@ public class Menu extends JFrame implements ActionListener{
 		
 		
 		JLabel bongasmenu = new JLabel("");
-		bongasmenu.setIcon(new ImageIcon(Menu.class.getResource("/imgs/Bongasbanner.png")));
+		bongasmenu.setIcon(new ImageIcon("imgs/Bongasbanner.png"));
 		bongasmenu.setBounds(0, 0, 732, 702);
 		getContentPane().add(bongasmenu);
 		

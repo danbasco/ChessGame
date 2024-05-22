@@ -15,10 +15,10 @@ public class Queen extends Piece{
 		super(color);
 		
 		if(color == Cores.WHITE) {
-			this.QueenIcon = new ImageIcon(Queen.class.getResource("/imgs/pieces/white/queen.png"));
+			this.QueenIcon = new ImageIcon("imgs/pieces/white/queen.png");
 		}
 		else {
-			this.QueenIcon = new ImageIcon(Queen.class.getResource("/imgs/pieces/black/queen.png"));
+			this.QueenIcon = new ImageIcon("imgs/pieces/black/queen.png");
 		}
 	}
 	

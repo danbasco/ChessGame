@@ -18,12 +18,12 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
         super(color);
         
         if(color == Cores.WHITE) {
-        	this.PawnIcon = new ImageIcon(Pawn.class.getResource("/imgs/pieces/white/pawn.png"));
+        	this.PawnIcon = new ImageIcon("imgs/pieces/white/pawn.png");
         	
         }
         else {
         	
-        	this.PawnIcon = new ImageIcon(Pawn.class.getResource("/imgs/pieces/black/pawn.png"));
+        	this.PawnIcon = new ImageIcon("imgs/pieces/black/pawn.png");
         }
         
     }
