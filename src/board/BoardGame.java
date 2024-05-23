@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -69,9 +70,11 @@ public class BoardGame extends JFrame{
 	
 	}
 	
+	
 	private void createBoard() {
 		
 		// PRETO
+		
 		
         board[0][0] = new Square(new Rook(Cores.BLACK), new Coords<>(0, 0)); //Criando manualmente cada posição do quadrado no tabuleiro
         board[0][0].setBounds(30, 0, 100, 100);
@@ -96,6 +99,7 @@ public class BoardGame extends JFrame{
         
         board[7][0] = new Square(new Rook(Cores.BLACK), new Coords<>(7, 0));
         board[7][0].setBounds(730, 0, 100, 100);
+        
         
 		
 		// PEOES PRETOS
@@ -194,9 +198,16 @@ public class BoardGame extends JFrame{
 	
 	
 	// EVENTO QUANDO CLICA NO TABULEIRO
-
+	
+	/**
+	 * 
+	 * @return MouseAdapter
+	 */
 	private MouseAdapter umouseClicked() {
 		return new MouseAdapter(){
+			
+			// Quando for clicado
+			@Override
 	        public void mouseClicked(MouseEvent e) {
 	        	
 	        	if(!game) return;
@@ -259,6 +270,21 @@ public class BoardGame extends JFrame{
 	        	
 	        
 	        }
+	        
+	        @Override
+	        public void mouseDragged(MouseEvent e) {
+	        	/*
+	        	Square sq = Square.class.cast(e.getComponent());
+	        	if(sq.getPiece() != null) {
+	        		sq.getPiece().
+	        	}
+	        	*/
+	        }
+	        
+	        @Override
+	        public void mouseReleased(MouseEvent e) {
+	        	
+	        }
 	    };
 	    
 	    
@@ -284,6 +310,9 @@ public class BoardGame extends JFrame{
 	
 	
 	private void switchTimer() {
+		
+		
+		if(!game) return;
 		
 		switch(turn%2) {
 		
@@ -416,6 +445,25 @@ public class BoardGame extends JFrame{
 	public static void setGame(boolean gameSt){
 		game = gameSt;
 	}
+	
+	
+/** Função para iniciar novo jogo, não está funcionando
+ * @deprecated
+ * */
+	public static void newGame(BoardGame b) {
+		
+		System.out.println("Iniciar novo Jogo? 1 - Sim  2 - Não");
+		
+		Scanner sc = new Scanner(System.in);
+		int x = 0;
+		
+		while(x != 1 || x != 2) x = sc.nextInt();
+		
+		if(x == 1)b.restartBoard();
+		
+		sc.close();
+	}
+	
 
 	public static void stopTimers(){
 

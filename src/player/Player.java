@@ -90,7 +90,7 @@ public class Player {
         		/** Verifica se a casa não está vazia e é um rei, para chamar o evento
         		 * {@link board.events.EndGameEvent}
         		 */
-        		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class)EventListener.Trigger(new EndGameEvent().event());
+        		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class)EventListener.Trigger(new EndGameEvent(t).event());
         		
         		// Permutação simples para mover a peça de uma casa para outra
         		
@@ -135,7 +135,7 @@ public class Player {
         	if(p1.checkEat(sq1.getCoords(), sq2.getCoords())) {
         			
         		if(sq2.getPiece().getClass() == King.class) { // Se o peão comeu o rei
-            		EventListener.Trigger(new EndGameEvent().event());
+            		EventListener.Trigger(new EndGameEvent(t).event());
             	}
         			
         		try {

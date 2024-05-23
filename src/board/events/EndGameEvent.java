@@ -11,7 +11,7 @@ public class EndGameEvent{
 	private EventListener eventListener;
 	private Event event;
 
-	public EndGameEvent() {
+	public EndGameEvent(BoardGame b) {
 		
 		eventListener = new EventListener();
 
@@ -28,6 +28,7 @@ public class EndGameEvent{
 				} 
 				BoardGame.setGame(false);
 				BoardGame.stopTimers();
+				// BoardGame.newGame(b);
 				
 			}
 

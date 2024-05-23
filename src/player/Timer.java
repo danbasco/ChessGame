@@ -65,7 +65,7 @@ public class Timer extends JPanel {
 		
 		// Fim do Tempo, da Trigger no Evento de EndGame
 		
-		EventListener.Trigger(new EndGameEvent().event());
+		EventListener.Trigger(new EndGameEvent(null).event());
 		
 		}
 		
