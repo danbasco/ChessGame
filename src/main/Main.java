@@ -1,12 +1,10 @@
-/**
+/**Projeto de POO do 3 semestre do SENAI CIMATEC -- Jogo de Xadrez
+ * 
  *  @author Artur Gouveia
  *  @author André Rezende
  *  @author Daniel Vasconcelos
  *  @author Guilherme Rios
- *  
- *  
- *  Projeto de POO do 3 semestre do SENAI CIMATEC -- Jogo de Xadrez
- *  
+ *  @version 1.01
  */
 
 
@@ -16,6 +14,7 @@ package main;
 import java.awt.EventQueue;
 
 import menu.*;
+
 
 public class Main {
 	

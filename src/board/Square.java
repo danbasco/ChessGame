@@ -18,7 +18,7 @@ public class Square extends JPanel{
 	
 	private JLabel clickedIcon;
 	
-	Coords<Integer, Integer> coords;
+	private Coords<Integer, Integer> coords;
 	
 	public Square(Coords<Integer, Integer> coords) {
 		
@@ -37,7 +37,6 @@ public class Square extends JPanel{
 		
 	}
 	
-	// INICIALIZA E CONFIGURA A PARTE GRÁFICA
 	
 	private void startLayout() {
 		

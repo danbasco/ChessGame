@@ -21,15 +21,21 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+/**
+ * @version 1.0
+ */
+
+
 public class Menu extends JFrame implements ActionListener { 
 	 
 	private JButton button; // Botão para começar o jogo
 	
 	private JTextField name1; 
 	private JTextField name2;
+	private static final long serialVersionUID = 1L;
 	
 	
-	public Menu() { // Construtor do Menu, que vai criar a interface gráfica
+	public Menu() { /** Construtor do Menu, que vai criar a interface gráfica*/
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 712, 738); // Tamanho do Menu
@@ -41,13 +47,11 @@ public class Menu extends JFrame implements ActionListener {
 		
 	}
 	
-	private static final long serialVersionUID = 1L;
 
-	/* 
-	 * Essa função aqui vai criar os players, Player 1 e Player 2 e vai retornar um vetor
-	 * com os dois players criados
+	/**
+	 * Essa função vai criar os players, Player 1 e Player 2
+	 * @return Vetor[] com Players
 	 */
-	
 	public Player[] createPlayers(String n1, String n2){ 
 		
 	
@@ -65,9 +69,12 @@ public class Menu extends JFrame implements ActionListener {
 	}
 
 	
+	/**Evento - Iniciar jogo 
+	 * {@link playsounds.Sounds#gameStart()}
+	 * */
 	
 	@Override
-	public void actionPerformed(ActionEvent e) { // Evento para quando o botão de iniciar jogo for pressionado
+	public void actionPerformed(ActionEvent e) { 
 		
 		// Nomes default dos players caso nenhum tenha sido inserido
 		
@@ -83,10 +90,7 @@ public class Menu extends JFrame implements ActionListener {
 		
 		try {
 			
-			/**
-			 * Efeito sonoro especial para quando iniciar o jogo 
-			 * {@link playsounds.Sounds}
-			 */
+			/** Efeito sonoro especial para quando iniciar o jogo */
 			
 			Sounds.gameStart();
 			new BoardGame(createPlayers(n1, n2));
@@ -100,6 +104,7 @@ public class Menu extends JFrame implements ActionListener {
 		
 	}
 	
+	/** Parte Visual do menu */
 	
 	private void frontCabuloso2() {
 		
@@ -116,6 +121,11 @@ public class Menu extends JFrame implements ActionListener {
 		name2.setBounds(120, 128, 232, 41);
 		getContentPane().add(name2);
 		
+		
+		/**
+		 * Botão interativo
+		 */
+		
 		button = new JButton("Jogar");
 		button.addActionListener(this);
 		button.setForeground(Color.WHITE);
@@ -125,7 +135,7 @@ public class Menu extends JFrame implements ActionListener {
 		
 		
 		JLabel bongasmenu = new JLabel("");
-		bongasmenu.setIcon(new ImageIcon("imgs/Bongasbanner.png"));
+		bongasmenu.setIcon(new ImageIcon("imgs/Bongasbanner.png")); 
 		bongasmenu.setBounds(0, 0, 732, 702);
 		getContentPane().add(bongasmenu);
 		
@@ -137,7 +147,7 @@ public class Menu extends JFrame implements ActionListener {
 		olhoEsquerdo.setBounds(445, 177, 52, 66);
 		getContentPane().add(olhoEsquerdo);
 		
-		olhoDireito.addMouseListener(bongasEventDireito());
+		olhoDireito.addMouseListener(bongasEventDireito()); // Adicionando os eventos
 		olhoEsquerdo.addMouseListener(bongasEventEsquerdo());
 		
 		
@@ -147,6 +157,10 @@ public class Menu extends JFrame implements ActionListener {
 	// OLHO DIREITO
 
 	
+	/**
+	 * Evento para reproduzir som ao interagir com objeto especial
+	 * @return MouseAdapter - Interface
+	 */
 	private MouseAdapter bongasEventDireito() {
 		return new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -164,6 +178,10 @@ public class Menu extends JFrame implements ActionListener {
 	// OLHO ESQUERDO
 	
 	
+	/**
+	 * Evento para reproduzir som ao interagir com objeto especial
+	 * @return MouseAdapter - Interface
+	 */
 	
 	private MouseAdapter bongasEventEsquerdo() {
 		return new MouseAdapter() {

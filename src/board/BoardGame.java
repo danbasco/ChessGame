@@ -22,24 +22,29 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
 
+/** Classe do tabuleiro, contém o JFrame principal e os eventos de MouseListener
+ * @version 1.0
+ */
+
 public class BoardGame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private Square[][] board;
 	
-	private int turn = 0;
+	private int turn = 0; // Turnos alternando para verificar de quem é a vez de jogar
 	private Player[] players;
 	
 	private static boolean leftClicked = false;
 	private static Square clickedSquare = null;
 
-	private static boolean game;
+	private static boolean game; // Status do game, se está finalizado ou não
 	
-	private static Timer timerW;
-	private static Timer timerB;
+	private static Timer timerW; // Timer do Jogador 1
+	private static Timer timerB; // Timer do jogador 2
 	
-	
+	// Construtor
 	public BoardGame(Player[] players) throws InterruptedException {
 		
 		this.setVisible(true);
