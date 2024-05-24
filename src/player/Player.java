@@ -137,15 +137,13 @@ public class Player {
         		if(sq2.getPiece().getClass() == King.class) { // Se o peão comeu o rei
             		EventListener.Trigger(new EndGameEvent(t).event());
             	}
-        			
         		try {
         			/** {@link playsounds.Sounds#onCapture()} */
     				Sounds.onCapture();
     			} catch (Exception e) {
 
     				e.printStackTrace();
-    			} 
-        		
+    			}        		
         		// Permutação simples para mover a peça de uma casa para outra
         		
         		sq2.updatePiece(sq1.getPiece());

@@ -3,6 +3,8 @@ import javax.swing.ImageIcon;
 
 import board.Coords;
 import colors.*;
+import menu.Menu;
+
 import java.util.ArrayList;
 
 
@@ -13,14 +15,10 @@ public class King extends Piece{
 	private ImageIcon KingIcon;
 	
 	public King(Cores color) {
-		super(color);
 		
-		if(color == Cores.WHITE) {
-			this.KingIcon = new ImageIcon("imgs/pieces/white/king.png");
-		}
-		else {
-			this.KingIcon = new ImageIcon("imgs/pieces/black/king.png");
-		}
+		super(color);
+		this.KingIcon = color == Cores.WHITE?new ImageIcon(String.format("imgs/%s/pieces/white/king.png", Menu.THEME)):new ImageIcon(String.format("imgs/%s/pieces/black/king.png", Menu.THEME));
+		
 	}
 	
 	

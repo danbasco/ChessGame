@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 
 import board.Coords;
 import colors.*;
+import menu.Menu;
 
 public class Rook extends Piece{
 	
@@ -13,14 +14,10 @@ public class Rook extends Piece{
 	private ImageIcon RookIcon;
 	
 	public Rook(Cores color) {
-		super(color);
 		
-		if(color == Cores.WHITE) {
-			this.RookIcon = new ImageIcon("imgs/pieces/white/rook.png");
-		}
-		else {
-			this.RookIcon = new ImageIcon("imgs/pieces/black/rook.png");
-		}
+		super(color);
+		this.RookIcon = color == Cores.WHITE?new ImageIcon(String.format("imgs/%s/pieces/white/rook.png", Menu.THEME)):new ImageIcon(String.format("imgs/%s/pieces/black/rook.png", Menu.THEME));
+		
 	}
 	
 

@@ -3,6 +3,8 @@ import javax.swing.ImageIcon;
 
 import board.Coords;
 import colors.*;
+import menu.Menu;
+
 import java.util.ArrayList;
 
 public class Bishop extends Piece{
@@ -12,15 +14,10 @@ public class Bishop extends Piece{
 	private ImageIcon BishopIcon;
 	
 	public Bishop(Cores color) {
-		super(color);
 		
-		if(color == Cores.WHITE) {
-			this.BishopIcon = new ImageIcon("imgs/pieces/white/bishop.png");
-			
-		}
-		else {
-			this.BishopIcon = new ImageIcon("imgs/pieces/black/bishop.png");
-		}
+		super(color);
+		this.BishopIcon = color == Cores.WHITE?new ImageIcon(String.format("imgs/%s/pieces/white/bishop.png", Menu.THEME)):new ImageIcon(String.format("imgs/%s/pieces/black/bishop.png", Menu.THEME));
+		
 	}
 	
 	

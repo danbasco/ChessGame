@@ -1,6 +1,8 @@
 package board;
 
 import javax.swing.JPanel;
+
+import menu.Menu;
 import pieces.Piece;
 
 import javax.swing.ImageIcon;
@@ -104,7 +106,7 @@ public class Square extends JPanel{
 	
 	public void switchSelected() {
 		if(!clickedBool) {
-			this.clickedIcon.setIcon(new ImageIcon("imgs/boardi/green.png"));
+			this.clickedIcon.setIcon(new ImageIcon(String.format("imgs/%s/boardi/green.png", Menu.THEME)));
 			clickedBool = true;
 		
 		}

@@ -12,6 +12,7 @@ import pieces.Queen;
 import pieces.Rook;
 import player.*;
 import colors.*;
+import menu.Menu;
 
 import javax.swing.JLabel;
 
@@ -21,6 +22,7 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Color;
 
 /** Classe do tabuleiro, contém o JFrame principal e os eventos de MouseListener
@@ -49,14 +51,14 @@ public class BoardGame extends JFrame{
 	public BoardGame(Player[] players) throws InterruptedException {
 		
 		this.setVisible(true);
-		this.setResizable(false);
+		//this.setResizable(true);
 		this.setTitle("BongasChess");
+		this.setLayout(new GridLayout());
 		
 		this.players = players;
 		game = true;
 		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
         
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1050, 868);
 		contentPane = new JPanel();
@@ -379,12 +381,12 @@ public class BoardGame extends JFrame{
 		
 		JLabel timerWIc = new JLabel("");
 		timerWIc.setBounds(860, 40, 150, 50);
-		timerWIc.setIcon(new ImageIcon("imgs/boardi/TimerIc.png"));
+		timerWIc.setIcon(new ImageIcon(String.format("imgs/%s/boardi/TimerIc.png", Menu.THEME)));
 		contentPane.add(timerWIc);
 		
 		JLabel timerBIc = new JLabel("");
 		timerBIc.setBounds(860, 720, 150, 50);
-		timerBIc.setIcon(new ImageIcon("imgs/boardi/TimerIc.png"));
+		timerBIc.setIcon(new ImageIcon(String.format("imgs/%s/boardi/TimerIc.png", Menu.THEME)));
 		contentPane.add(timerBIc);
 		
 		
@@ -398,22 +400,22 @@ public class BoardGame extends JFrame{
 		
 		JLabel uVarIcon = new JLabel("");
 		uVarIcon.setBounds(0, 0, 150, 460);
-		uVarIcon.setIcon(new ImageIcon("imgs/boardi/uVariables.png"));
+		uVarIcon.setIcon(new ImageIcon(String.format("imgs/%s/boardi/uVariables.png", Menu.THEME)));
 		uVariables.add(uVarIcon);
 		
 		
 		JLabel sideNum = new JLabel("");
-		sideNum.setIcon(new ImageIcon("imgs/boardi/sideNum.png"));
+		sideNum.setIcon(new ImageIcon(String.format("imgs/%s/boardi/sideNum.png", Menu.THEME)));
 		sideNum.setBounds(0, 0, 30, 800);
 		contentPane.add(sideNum);
 		
 		JLabel downLetters = new JLabel("");
-		downLetters.setIcon(new ImageIcon("imgs/boardi/downLetters.png"));
+		downLetters.setIcon(new ImageIcon(String.format("imgs/%s/boardi/downLetters.png", Menu.THEME)));
 		downLetters.setBounds(0, 800, 830, 30);
 		contentPane.add(downLetters);
 		
 		JLabel sidePanel = new JLabel("");
-		sidePanel.setIcon(new ImageIcon("imgs/boardi/sidePanel.jpg"));
+		sidePanel.setIcon(new ImageIcon(String.format("imgs/%s/boardi/sidePanel.jpg", Menu.THEME)));
 		sidePanel.setBounds(840, 0, 194, 830);
 		contentPane.add(sidePanel);
 		
@@ -430,11 +432,11 @@ public class BoardGame extends JFrame{
 		JLabel boardLabel = new JLabel("");
 		boardLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		boardLabel.setBounds(0, 0, 800, 800);
-		boardLabel.setIcon(new ImageIcon("imgs/boardi/boardframe.png"));
+		boardLabel.setIcon(new ImageIcon(String.format("imgs/%s/boardi/boardframe.png", Menu.THEME)));
 		boardPanel.add(boardLabel);
 		
 		JLabel divs = new JLabel("");
-		divs.setIcon(new ImageIcon("imgs/boardi/temp.png"));
+		divs.setIcon(new ImageIcon(String.format("imgs/%s/boardi/temp.png", Menu.THEME)));
 		divs.setBounds(830, 0, 10, 830);
 		contentPane.add(divs);
 		

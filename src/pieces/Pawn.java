@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 
 import board.Coords;
 import colors.*;
+import menu.Menu;
 
 public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA PEÇA DEFAULT, Q É O MODELO
     
@@ -15,16 +16,8 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
     private ImageIcon PawnIcon;
     
     public Pawn(Cores color){
-        super(color);
-        
-        if(color == Cores.WHITE) {
-        	this.PawnIcon = new ImageIcon("imgs/pieces/white/pawn.png");
-        	
-        }
-        else {
-        	
-        	this.PawnIcon = new ImageIcon("imgs/pieces/black/pawn.png");
-        }
+        super(color);       
+        this.PawnIcon = color==Cores.WHITE? new ImageIcon(String.format("imgs/%s/pieces/white/pawn.png", Menu.THEME)) : new ImageIcon(String.format("imgs/%s/pieces/black/pawn.png", Menu.THEME));
         
     }
 

@@ -27,7 +27,8 @@ import javax.swing.JPanel;
 
 
 public class Menu extends JFrame implements ActionListener { 
-	 
+	
+	public static String THEME = "atlantic"; 
 	private JButton button; // Botão para começar o jogo
 	
 	private JTextField name1; 

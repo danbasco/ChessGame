@@ -18,8 +18,12 @@ import menu.*;
 
 public class Main {
 	
+	class Test {
+		public static String test = "dia";
+	}
 	
 	public static void main(String[] args) { // Função main
+		
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -29,6 +33,8 @@ public class Main {
 				
 			}
 		});
+		
+		
 		
 		
 	}

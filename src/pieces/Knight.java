@@ -3,6 +3,8 @@ import javax.swing.ImageIcon;
 
 import board.Coords;
 import colors.*;
+import menu.Menu;
+
 import java.util.ArrayList;
 
 public class Knight extends Piece{
@@ -15,16 +17,8 @@ public class Knight extends Piece{
 	public Knight(Cores color) {
 		
 		super(color);
-		
-		if(color == Cores.WHITE) {
-			this.KnightIcon = new ImageIcon("imgs/pieces/white/knight.png");
-			
-		}
-		else {
-			
-			this.KnightIcon = new ImageIcon("imgs/pieces/black/knight.png");
-		}
-		
+		this.KnightIcon = color == Cores.WHITE? new ImageIcon(String.format("imgs/%s/pieces/white/knight.png", Menu.THEME)) : new ImageIcon(String.format("imgs/%s/pieces/black/knight.png", Menu.THEME));
+				
 	}
 	
 
