@@ -92,23 +92,25 @@ public class Player {
         		 */
         		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class)EventListener.Trigger(new EndGameEvent(t).event());
         		
-        		// Permutação simples para mover a peça de uma casa para outra
+        		try {
+        			/** {@link playsounds.Sounds#onMove()}
+        			 *  {@link playsounds.Sounds#onCapture()}
+        			 */
+        			if(sq2.getPiece() != null)Sounds.onCapture();
+        			else Sounds.onMove();
+        			
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
         		
+        		// Permutação simples para mover a peça de uma casa para outra
         		sq2.updatePiece(sq1.getPiece());
         		sq1.updatePiece(null);
         		
-        		try {
-        			/** {@link playsounds.Sounds#onMove()} */
-					Sounds.onMove();
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
-        		
+        		 
         		return true;
         	}
-        	
-        	else return false;
-        	
+        	else return false;    	
         }
         else return false;
     }
@@ -149,14 +151,10 @@ public class Player {
         		sq2.updatePiece(sq1.getPiece());
             	sq1.updatePiece(null);
         			
-        		return true;
-        			
-        		}	
-        		
+        		return true;       			
+        		}			
         	}
-        	
-        	return false;
-        	
+        	return false;  	
     }
             
 }

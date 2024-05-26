@@ -7,6 +7,7 @@ import menu.Menu;
 
 import java.util.ArrayList;
 
+/** classe da Rainha */
 public class Queen extends Piece{
 
 	private static final long serialVersionUID = 1L;

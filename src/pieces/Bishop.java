@@ -7,7 +7,10 @@ import menu.Menu;
 
 import java.util.ArrayList;
 
-public class Bishop extends Piece{
+/**
+ * Classe do Bispo
+ */
+public final class Bishop extends Piece{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -27,7 +30,7 @@ public class Bishop extends Piece{
     }
 
 
-
+	
 	@Override
 	protected boolean checkMove(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
 		
@@ -43,7 +46,7 @@ public class Bishop extends Piece{
 		
 	}
 
-
+	@Override
 	public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
         
 		ArrayList<Coords<Integer, Integer>> possibleMoves = new ArrayList<>();

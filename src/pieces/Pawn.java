@@ -7,11 +7,17 @@ import board.Coords;
 import colors.*;
 import menu.Menu;
 
-public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA PEÇA DEFAULT, Q É O MODELO
+/** Classe do peão 
+ * 
+ * A classe do peão é um pouco diferente, pois ele come diferente da movimentação e 
+ * possui regras especiais para movimentar, como primeiro movimento, mudar quando chega 
+ * do outro lado e en passant por exemplo.
+ */
+public class Pawn extends Piece{
     
 	
 	private static final long serialVersionUID = 1L;
-	private boolean firstMove = true;
+	private boolean firstMove = true; // Verifica se foi movido a peça ou não
 	
     private ImageIcon PawnIcon;
     
@@ -99,7 +105,14 @@ public class Pawn extends Piece{//TODO PEAO POSSUI OS ATRIBUTOS PADROES DE UMA P
 		return null;
 	}
 	
-	
+	/**
+	 * Função para verificar se o peão pode comer a peça, pois ele anda diferentemente
+	 * de como come
+	 * {@link board.Coords}
+     * @param c1 Coords<Integer, Integer> - Coordenada Inicial
+     * @param c2 Coords<Integer, Integer> - Coordenada Final
+	 * @return boolean
+	 */
 	public boolean checkEat(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
 		
 		if(this.getColor() == Cores.WHITE) {

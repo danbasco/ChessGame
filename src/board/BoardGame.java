@@ -22,7 +22,6 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Color;
 
 /** Classe do tabuleiro, contém o JFrame principal e os eventos de MouseListener
@@ -33,11 +32,12 @@ public class BoardGame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	
+	// Painel principal + matriz das casas
 	private JPanel contentPane;
 	private Square[][] board;
 	
 	private int turn = 0; // Turnos alternando para verificar de quem é a vez de jogar
-	private Player[] players;
+	private Player[] players; // Jogadores
 	
 	private static boolean leftClicked = false;
 	private static Square clickedSquare = null;
@@ -47,17 +47,20 @@ public class BoardGame extends JFrame{
 	private static Timer timerW; // Timer do Jogador 1
 	private static Timer timerB; // Timer do jogador 2
 	
-	// Construtor
+	/**
+	 * Constutor 
+	 * @param players Player[] - Matriz dos jogadores
+	 * @throws InterruptedException
+	 */
 	public BoardGame(Player[] players) throws InterruptedException {
 		
 		this.setVisible(true);
-		//this.setResizable(true);
+		this.setResizable(false);
 		this.setTitle("BongasChess");
-		this.setLayout(new GridLayout());
 		
 		this.players = players;
-		game = true;
-		this.board = new Square[8][8]; // O TABULEIRO É UMA MATRIZ DE CASAS
+		game = true; // Jogo rolando
+		this.board = new Square[8][8];
         
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1050, 868);
@@ -72,10 +75,14 @@ public class BoardGame extends JFrame{
 	
 	}
 	
-	
+	/**
+	 * Função para criar as casas juntamente com as peças;
+	 * Cada casa possui uma coordenada específica e um tamanho no contentPane,
+	 * que foi medido e planejado com tamanhos exatos para facilitar a posição
+	 */
 	private void createBoard() {
 		
-		// PRETO
+		// Preto
 		
 		
         board[0][0] = new Square(new Rook(Cores.BLACK), new Coords<>(0, 0)); //Criando manualmente cada posição do quadrado no tabuleiro
@@ -104,7 +111,7 @@ public class BoardGame extends JFrame{
         
         
 		
-		// PEOES PRETOS
+		// Peões Pretos
         
 		for(int i = 0; i<8; i++){
 			
@@ -113,7 +120,8 @@ public class BoardGame extends JFrame{
 			
 			}
 		
-		// ESPAÇO VAZIO
+		// Espaço vazio
+		
 		for(int y = 2; y<=5; y++){
 			for(int x = 0; x<8; x++){
 			
@@ -123,7 +131,7 @@ public class BoardGame extends JFrame{
 			}
 		}
 		
-		// PEOES BRANCOS
+		// Peões Brancos
 		
 		for(int i = 0; i<8; i++){
 			
@@ -132,9 +140,7 @@ public class BoardGame extends JFrame{
 			
 			}
 		
-		// BRANCO
-		
-		
+		// Branco
 		
         board[0][7] = new Square(new Rook(Cores.WHITE), new Coords<>(0, 7)); //Criando manualmente cada posição do quadrado no tabuleiro
         board[0][7].setBounds(30, 700, 100, 100);
@@ -161,6 +167,7 @@ public class BoardGame extends JFrame{
         board[7][7].setBounds(730, 700, 100, 100);
         
         
+        // Adicionando no contentPane e colocando o EventListener
         
         for(int y = 0; y<8; y++) {
         	for(int x = 0; x<8; x++) {
@@ -173,10 +180,12 @@ public class BoardGame extends JFrame{
         	}
         }
         
-        frontCabuloso();
+        frontSinistro();
 	}
 	
-	
+	/**
+	 * Função para reiniciar o Jogo após o término, não foi implementada ainda
+	 */
 	public void restartBoard() {
 		
 		contentPane.removeAll();
@@ -197,103 +206,85 @@ public class BoardGame extends JFrame{
 		System.out.println("Novo jogo criado.");
 	}
 	
-	
-	
-	// EVENTO QUANDO CLICA NO TABULEIRO
-	
 	/**
-	 * 
+	 * Função para retornar o MouseAdapter e fazer o evento de mover as peças
 	 * @return MouseAdapter
 	 */
 	private MouseAdapter umouseClicked() {
 		return new MouseAdapter(){
 			
-			// Quando for clicado
 			@Override
-	        public void mouseClicked(MouseEvent e) {
+	        public void mousePressed(MouseEvent e) {
 	        	
 	        	if(!game) return;
 	        	
-	        	
+	        	// Verifica se foi clicado com o botão esquerdo do mouse
 	        	if(e.getButton() == MouseEvent.BUTTON1) {
 	        		
-	        		if(!leftClicked) {
+	        		if(!leftClicked) { // variável estática para verificar se já tem uma casa selecionada ou não
 	        				        			
-
-	        			Square sq = Square.class.cast(e.getComponent());
+	        			Square sq = (Square)e.getComponent();
 	        			
-	        			if(sq.getPiece() != null) {
+	        			if(sq.getPiece() != null) { // Verifica se a casa está vazia
 	        			
-	        				if(players[turn%2].getColor() == sq.getPiece().getColor()) {
+	        				if(players[turn%2].getColor() == sq.getPiece().getColor()) { // Evitar que players Brancos movam peças pretas
 	        				
-	        					clickedSquare = Square.class.cast(e.getComponent());
+	        					clickedSquare = sq; // Salva a casa selecionada em uma variável Square estática
 	        					leftClicked = true;
-	        		
-	        					clickedSquare.switchSelected();
+	        					clickedSquare.switchSelected(); // Muda a cor da casa selecionada para um verde
 	        				}
 	        			
 	        			}
 	        		}
 	        	
 	        		else {
-	        			
+	        			// Se já tiver uma casa selecionada
 	        			clickedSquare.switchSelected();
 	        			leftClicked = false;
 	        			
-	        			if(Square.class.cast(e.getComponent()).getPiece() == null) {
+	        			if(((Square) e.getComponent()).getPiece() == null) { 
 	        			
-	        				
+	        				// Se a casa estiver vazia, ele vai mover a casa
 	        				if(players[turn%2].movePieces(clickedSquare, Square.class.cast(e.getComponent()), getGame())) {
-	        				turn++;
-	        				switchTimer();
+	        					turn++;
+	        					switchTimer();
 	        				}
 	        			
 	        			}
 	        			
 	        			else {
 	        				
-	        					
+	        				// Se não estiver vazia, vai comer a peça	
 	        				if(players[turn%2].eatPieces(clickedSquare, Square.class.cast(e.getComponent()), getGame())) {
-	        						
 	        					turn++;
 	        					switchTimer();
-	        						
-	        					
+      							        					
 	        				}
 								
 							
 	        			}
 	        			
 	        			clickedSquare = null;
-	        			
 	        		}
 	        	
 	        	}
+	        	// Verifica se foi clicado com o botão esquerdo do mouse
 	        	
-	        
-	        }
-	        
-	        @Override
-	        public void mouseDragged(MouseEvent e) {
 	        	/*
-	        	Square sq = Square.class.cast(e.getComponent());
-	        	if(sq.getPiece() != null) {
-	        		sq.getPiece().
+	        	else if(e.getButton() == MouseEvent.BUTTON3) {
+	        		Square sq = Square.class.cast(e.getComponent());
+	        		sq.setRightClicked();
 	        	}
 	        	*/
-	        }
-	        
-	        @Override
-	        public void mouseReleased(MouseEvent e) {
-	        	
-	        }
-	    };
-	    
-	    
-	    
+			}	
+	    };  
 	}
 	
-	
+	/**
+	 * Função que retorna o estado da casa selecionada, verificar se está vazia ou não
+	 * @param c2 Coords<Integer, Integer> - Par de coordenadas
+	 * @return boolean 
+	 */
 	public boolean checkSquare(Coords<Integer, Integer> c2) {
         if(board[c2.xc][c2.yc].getPiece() == null) {
             return true;
@@ -302,29 +293,29 @@ public class BoardGame extends JFrame{
     }
 	
 	
-	
-	public BoardGame getGame() {
+	/**
+	 * retorna o próprio BoardGame, criado para implementar no MouseListener
+	 * @return BoardGame
+	 */
+	private BoardGame getGame() {
 		return this;
 	}
 	
-	
-	
-	
-	
+	/**
+	 * Função para alterar o timer entre o jogador 1 e o jogador 2
+	 */
 	private void switchTimer() {
 		
 		
-		if(!game) return;
+		if(!game) return; // Se não tiver o jogo acontecendo, retorna
 		
 		switch(turn%2) {
 		
 		case 0:
 			timerW.ResumeTimer();
-			
 			try {
 				timerB.PauseTimer();
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			break;
@@ -333,20 +324,19 @@ public class BoardGame extends JFrame{
 			try {
 				timerW.PauseTimer();
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
 			timerB.ResumeTimer();
-		
 		}
 	}
 	
-	
-	private void frontCabuloso() {
+	/** Parte visual do código, incluindo a criação das Labels e Panels
+	 *
+	 */
+	private void frontSinistro() {
 		
 		
-		// PAINEL LATERAL
+		// Painel Lateral
 		
 		JLabel name1 = new JLabel(players[0].getName());
 		name1.setForeground(new Color(255, 255, 255));
@@ -360,6 +350,7 @@ public class BoardGame extends JFrame{
 		name2.setBounds(860, 15, 108, 30);
 		contentPane.add(name2);
 		
+		// Criação do Timer
 		try {
 			timerW = new Timer(true);
 			timerW.setForeground(new Color(255, 255, 255));
@@ -374,11 +365,11 @@ public class BoardGame extends JFrame{
 			// timerB.setLayout(null);
 			timerB.setOpaque(false);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
-		
+		// Visual do Timer
 		JLabel timerWIc = new JLabel("");
 		timerWIc.setBounds(860, 40, 150, 50);
 		timerWIc.setIcon(new ImageIcon(String.format("imgs/%s/boardi/TimerIc.png", Menu.THEME)));
@@ -390,7 +381,7 @@ public class BoardGame extends JFrame{
 		contentPane.add(timerBIc);
 		
 		
-		
+		// Barra lateral com os números
 		
 		JPanel uVariables = new JPanel();
 		uVariables.setBounds(860, 180, 150, 460);
@@ -422,7 +413,7 @@ public class BoardGame extends JFrame{
 		
 		
 		
-		// Painel do tabuleiro
+		// Painel principal do tabuleiro
 		
 		JPanel boardPanel = new JPanel();
 		boardPanel.setBounds(30, 0, 800, 800);
@@ -443,15 +434,19 @@ public class BoardGame extends JFrame{
 	
 		
 	}
-
+	
+	/**
+	 * Atualiza o status do jogo
+	 * @param gameSt boolean: game
+	 */
 	public static void setGame(boolean gameSt){
 		game = gameSt;
 	}
 	
 	
-/** Função para iniciar novo jogo, não está funcionando
- * @deprecated
- * */
+	/** Função para iniciar novo jogo, não está funcionando
+	 * @deprecated
+	 * */
 	public static void newGame(BoardGame b) {
 		
 		System.out.println("Iniciar novo Jogo? 1 - Sim  2 - Não");
@@ -466,7 +461,7 @@ public class BoardGame extends JFrame{
 		sc.close();
 	}
 	
-
+	/** Função de pausar os dois timers */
 	public static void stopTimers(){
 
 		try{

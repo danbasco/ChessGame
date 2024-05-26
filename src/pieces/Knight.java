@@ -7,6 +7,7 @@ import menu.Menu;
 
 import java.util.ArrayList;
 
+/** Classe do Cavalo */
 public class Knight extends Piece{
 
     

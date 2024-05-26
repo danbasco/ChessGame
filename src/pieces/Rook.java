@@ -7,6 +7,7 @@ import board.Coords;
 import colors.*;
 import menu.Menu;
 
+/** Classe da torre */
 public class Rook extends Piece{
 	
 	private static final long serialVersionUID = 1L;

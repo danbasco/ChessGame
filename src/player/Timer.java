@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 
+/** Classe do timer do player
+ * @version 1.0
+ */
 public class Timer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +22,11 @@ public class Timer extends JPanel {
 	private int timeMin; // Tempo em minutos
 	private int timeSec; // Tempo em segundos
 	
-	
+	/**
+	 * Construtor do Timer
+	 * @param timeRunning Boolean - Se o timer vai estar correndo ou não
+	 * @throws InterruptedException
+	 */
 	public Timer(boolean timeRunning) throws InterruptedException {
 		
 		this.timeRunning = timeRunning; //Verifica se o timer está rodando ou parado inicialmente
@@ -34,17 +41,18 @@ public class Timer extends JPanel {
 	}
 	
 	
-
-	private Runnable time = new Runnable() { /*Classe anônima para criar um evento assíncrono de timer,
-	 										   que executa independente do código ou movimentação.
-	 											*/
+	/** 
+	 * Classe anônima para criar um evento assíncrono de timer,
+	 * que executa independente do código ou movimentação.											
+	 */
+	private Runnable time = new Runnable() { 
 		@Override
 		public void run() {
-		final int totalT = 600; //Tempo em segundos
+		final int totalT = 600; // Tempo em segundos
 		
 		for(int x = totalT; x >= 0; x--) {
 			
-			if(!timeRunning) {
+			if(!timeRunning) { // Caso o tempo pare, pausar o Runnable
 				synchronized(this) {
 					try {
 						this.wait();
@@ -54,7 +62,7 @@ public class Timer extends JPanel {
 				}
 			}
 			
-			updateTime(x);	// Aqui passa o timer atual e a função faz a conversão para {minutos:segundos}		
+			updateTime(x);// Aqui passa o timer atual e a função faz a conversão para {minutos:segundos}		
 			
 			try {
 				Thread.sleep(1000); //Espera 1 segundo para atualizar novamente
@@ -73,7 +81,12 @@ public class Timer extends JPanel {
 	};
 	
 	
-	//Atualizar visualmente o timer a cada segundo
+	/**
+	 * Essa função faz a conversão do tempo em segundos para 
+	 * minutos:segundos e atualiza a label visual já no formato
+	 * de String
+	 * @param seconds int - Tempo em segundos
+	 */
 	private void updateTime(int seconds) {
 		
 		timeMin = ((seconds%86400)%3600)/60;
@@ -84,7 +97,10 @@ public class Timer extends JPanel {
 	
 	
 	
-	// Função para inicializar a Thread do Timer
+	/**
+	 * Função para iniciar o Runnable
+	 * @throws InterruptedException
+	 */
 	public void startTimer() throws InterruptedException {
 		
 		Thread t1 = new Thread(time);
@@ -92,14 +108,19 @@ public class Timer extends JPanel {
 		
 	}
 	
-	//Pausar Timer
+	/**
+	 * Função para pausar o Runnable
+	 * @throws InterruptedException
+	 */
 	public void PauseTimer() throws InterruptedException {
 		timeRunning = false;
 		
 	}
 	
 	
-	//Continuar Timer
+	/**
+	 * Função para continuar o Runnable
+	 */
 	public void ResumeTimer() {
 		timeRunning = true;
 		

@@ -7,7 +7,7 @@ import menu.Menu;
 
 import java.util.ArrayList;
 
-
+/** Classe do Rei */
 public class King extends Piece{
     
 	private static final long serialVersionUID = 1L;

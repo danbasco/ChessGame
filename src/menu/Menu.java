@@ -1,42 +1,44 @@
 package menu;
 
 import javax.swing.JFrame;
-
-import player.*;
 import playsounds.Sounds;
-import colors.*;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import board.BoardGame;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
-/**
- * @version 1.0
+/**Classe principal do menu inicial
+ * @version 1.1
  */
 
 
-public class Menu extends JFrame implements ActionListener { 
+public class Menu extends JFrame {
 	
-	public static String THEME = "atlantic"; 
-	private JButton button; // Botão para começar o jogo
+	/** Inner class customizada para criar um MouseAdapter e conseguir receber
+	 * como parâmetro o Menu
+	 */
+	private abstract class MouseAdapter implements MouseListener {
+		public Menu menu;
+		protected MouseAdapter(Menu menu) {
+			
+			this.menu = menu;
+		}
+		
+	    public void mouseClicked(MouseEvent e) {}
+	    public void mousePressed(MouseEvent e) {}
+	    public void mouseReleased(MouseEvent e) {}
+	    public void mouseEntered(MouseEvent e) {}
+	    public void mouseExited(MouseEvent e) {}
+	}
 	
-	private JTextField name1; 
-	private JTextField name2;
+	public static String THEME = "default";  // Tema default - atlantic
 	private static final long serialVersionUID = 1L;
-	
-	
-	public Menu() { /** Construtor do Menu, que vai criar a interface gráfica*/
+
+	/** Construtor do Menu, que vai criar a interface gráfica*/
+	public Menu() { 
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 712, 738); // Tamanho do Menu
@@ -44,156 +46,78 @@ public class Menu extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setResizable(false);
 		
-		frontCabuloso2();
+		frontSinistro2();
 		
 	}
 	
-
-	/**
-	 * Essa função vai criar os players, Player 1 e Player 2
-	 * @return Vetor[] com Players
-	 */
-	public Player[] createPlayers(String n1, String n2){ 
-		
-	
-		Player p1 = new Player(n1, Cores.WHITE); // Player 1
-		Player p2 = new Player(n2, Cores.BLACK); // Player 2
-		
-		Player[] ps = new Player[] {
-			p1,
-			p2
-		};
-		
-		
-		return ps;
-		
-	}
-
-	
-	/**Evento - Iniciar jogo 
-	 * {@link playsounds.Sounds#gameStart()}
-	 * */
-	
-	@Override
-	public void actionPerformed(ActionEvent e) { 
-		
-		// Nomes default dos players caso nenhum tenha sido inserido
-		
-		String n1 = "Player 1"; 
-		String n2 = "Player 2";
-		
-		if(e.getSource() == button) {
-			
-			if(!name1.getText().equals("")) n1 = name1.getText();
-			if(!name2.getText().equals("")) n2 = name2.getText();
-			
-		}
-		
-		try {
-			
-			/** Efeito sonoro especial para quando iniciar o jogo */
-			
-			Sounds.gameStart();
-			new BoardGame(createPlayers(n1, n2));
-			
-		} catch (Exception e1) {
-			
-			e1.printStackTrace();
-		}
+	/** Função para fechar o Menu */
+	public void clearMenu() {
 		super.dispose();
-				
-		
 	}
 	
+	/** Função para reiniciar o Menu e atualizar */
+	public void repaintMenu() {
+		super.dispose();
+		new Menu();
+	}
 	/** Parte Visual do menu */
-	
-	private void frontCabuloso2() {
+	private void frontSinistro2() {
 		
 		
 		getContentPane().setLayout(null);
 		
-		name1 = new JTextField();
-		name1.setBackground(new Color(121, 104, 100));
-		name1.setBounds(120, 60, 232, 41);
-		getContentPane().add(name1);
-		
-		name2 = new JTextField();
-		name2.setBackground(new Color(121, 104, 100));
-		name2.setBounds(120, 128, 232, 41);
-		getContentPane().add(name2);
-		
-		
 		/**
-		 * Botão interativo
+		 *  Como os botões do JLabel são feios, criamos um design diferente no
+		 *  Photoshop e colocamos um JPanel transparente sobre o botão para ter
+		 *  a interação
 		 */
 		
-		button = new JButton("Jogar");
-		button.addActionListener(this);
-		button.setForeground(Color.WHITE);
-		button.setBackground(new Color(121, 104, 100));
-		button.setBounds(120, 188, 119, 41);
-		getContentPane().add(button);
+		// Botão de iniciar Jogo
+		JPanel startGame = new JPanel();
+		startGame.setBounds(275, 498, 154, 79);
+		startGame.setOpaque(false);
+		startGame.addMouseListener(new MouseAdapter(this) {
+			@Override	
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Sounds.onCapture();
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
+				new Start();
+				menu.clearMenu();
+			}
+		});
+		getContentPane().add(startGame);
+		
+		// Botão para alterar o tema do Jogo
+		JPanel options = new JPanel();
+		options.setBounds(288, 605, 123, 61);
+		options.setOpaque(false);
+		options.addMouseListener(new MouseAdapter(this) {
+			@Override	
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Sounds.onCapture(); /** {@link playsounds.Sounds#onCapture()} */
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				Menu.THEME = Menu.THEME == "atlantic" ? "default" : "atlantic";
+				menu.repaintMenu();
+			}
+		});
+		getContentPane().add(options);
 		
 		
+		//Banner de fundo do menu
 		JLabel bongasmenu = new JLabel("");
-		bongasmenu.setIcon(new ImageIcon("imgs/Bongasbanner.png")); 
+		bongasmenu.setIcon(new ImageIcon(String.format("imgs/%s/menu/Bongasbanner.png", Menu.THEME))); 
 		bongasmenu.setBounds(0, 0, 732, 702);
 		getContentPane().add(bongasmenu);
 		
-		JPanel olhoDireito = new JPanel();
-		olhoDireito.setBounds(536, 177, 52, 66);
-		getContentPane().add(olhoDireito);
-		
-		JPanel olhoEsquerdo = new JPanel();
-		olhoEsquerdo.setBounds(445, 177, 52, 66);
-		getContentPane().add(olhoEsquerdo);
-		
-		olhoDireito.addMouseListener(bongasEventDireito()); // Adicionando os eventos
-		olhoEsquerdo.addMouseListener(bongasEventEsquerdo());
-		
-		
 	}
 	
-	
-	// OLHO DIREITO
-
-	
-	/**
-	 * Evento para reproduzir som ao interagir com objeto especial
-	 * @return MouseAdapter - Interface
-	 */
-	private MouseAdapter bongasEventDireito() {
-		return new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Sounds.plim();
-				} catch (Exception e1) {
-					System.out.println(e1);
-				
-			}
-			}
-		};
-	}
-	
-	
-	// OLHO ESQUERDO
-	
-	
-	/**
-	 * Evento para reproduzir som ao interagir com objeto especial
-	 * @return MouseAdapter - Interface
-	 */
-	
-	private MouseAdapter bongasEventEsquerdo() {
-		return new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Sounds.boing();
-				} catch (Exception e1) {
-					System.out.println(e1);
-				
-			}
-			}
-		};
-	}
 }
