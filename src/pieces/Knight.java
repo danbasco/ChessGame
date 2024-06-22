@@ -10,7 +10,8 @@ import java.util.ArrayList;
 /** Classe do Cavalo */
 public class Knight extends Piece{
 
-    
+	private char Letter = 'Q';
+	
 	private static final long serialVersionUID = 1L;
 	
     private ImageIcon KnightIcon;
@@ -57,6 +58,12 @@ public class Knight extends Piece{
 		}
 		return null;
 	}
+	
+	@Override
+	public char getLetter() {
+		return Letter;
+	}
+
 
 
 }

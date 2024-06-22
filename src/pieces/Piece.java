@@ -14,6 +14,7 @@ import colors.*;
  */
 public abstract class Piece extends JLabel{ // Todas as peças possuem uma JLabel, um ícone associado
     
+	
 	private static final long serialVersionUID = 1L;
 
     private Cores color; // Enum das cores
@@ -35,6 +36,8 @@ public abstract class Piece extends JLabel{ // Todas as peças possuem uma JLabe
     public Cores getColor() {
     	return this.color;
     }
+    
+    abstract public char getLetter();
     
     /** Função abstrata para pegar o icon da peça
      * @return ImageIcon

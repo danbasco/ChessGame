@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 /** Classe do Rei */
 public class King extends Piece{
+	
+	private char Letter = 'K';
     
 	private static final long serialVersionUID = 1L;
 	
@@ -54,5 +56,11 @@ public class King extends Piece{
 		
 		return null;
 		
+	}
+
+
+	@Override
+	public char getLetter() {
+		return Letter;
 	}
 }

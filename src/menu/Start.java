@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import board.BoardGame;
+import board.Movements;
 import colors.Cores;
 import player.Player;
 import playsounds.Sounds;
@@ -109,8 +110,10 @@ public class Start extends JFrame implements MouseListener{
 		if(!name2.getText().equals(""))n2 = name2.getText();
 		
 		try {
+			Player [] ps = createPlayers(n1, n2);
 			Sounds.gameStart();
-			new BoardGame(createPlayers(n1, n2)); // Criar jogo
+			Movements.criarLog(ps);
+			new BoardGame(ps); // Criar jogo
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();

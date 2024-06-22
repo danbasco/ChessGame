@@ -10,6 +10,8 @@ import menu.Menu;
 /** Classe da torre */
 public class Rook extends Piece{
 	
+	private char Letter = 'R';
+	
 	private static final long serialVersionUID = 1L;
 	
 	private ImageIcon RookIcon;
@@ -77,6 +79,10 @@ public class Rook extends Piece{
 		
 	}
 	
-	
+	@Override
+	public char getLetter() {
+		return Letter;
+	}
+
 
 }

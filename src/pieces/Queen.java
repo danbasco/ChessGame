@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 /** classe da Rainha */
 public class Queen extends Piece{
+	
+	private char Letter = 'Q';
 
 	private static final long serialVersionUID = 1L;
 	
@@ -113,6 +115,11 @@ public class Queen extends Piece{
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public char getLetter() {
+		return Letter;
 	}
 
 }

@@ -14,7 +14,9 @@ import menu.Menu;
  * do outro lado e en passant por exemplo.
  */
 public class Pawn extends Piece{
+
     
+	private char Letter = 'p';
 	
 	private static final long serialVersionUID = 1L;
 	private boolean firstMove = true; // Verifica se foi movido a peça ou não
@@ -123,5 +125,11 @@ public class Pawn extends Piece{
 		}
 		return false;
 	}
+	
+	@Override
+	public char getLetter() {
+		return Letter;
+	}
+
      
 }

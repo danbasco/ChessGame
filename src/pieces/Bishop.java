@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public final class Bishop extends Piece{
 	
+	private char Letter = 'B';
+	
 	private static final long serialVersionUID = 1L;
 	
 	private ImageIcon BishopIcon;
@@ -93,6 +95,12 @@ public final class Bishop extends Piece{
         }
         return null;
     }
+
+
+	@Override
+	public char getLetter() {
+		return Letter;
+	}
     
 
 }

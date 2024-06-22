@@ -1,6 +1,7 @@
 package player;
 import board.BoardGame;
 import board.Coords;
+import board.Movements;
 import board.Square;
 import board.events.*;
 import colors.Cores;
@@ -98,6 +99,7 @@ public class Player {
         			 */
         			if(sq2.getPiece() != null)Sounds.onCapture();
         			else Sounds.onMove();
+        			Movements.gravaDisco(this, sq1.getPiece(), sq2.getCoords());
         			
 				} catch (Exception e) {
 					e.printStackTrace();
