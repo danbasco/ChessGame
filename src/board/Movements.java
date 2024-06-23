@@ -23,6 +23,7 @@ public class Movements <X1 extends Number, X2 extends Square>{
 	
 	public static void gravaDisco(Player p, Piece piece, Coords<Integer, Integer> c1) throws IOException{
 		BufferedWriter bw = new BufferedWriter(new FileWriter("logs/" + match + ".txt", true));
+		 bw.write("\n");
 		 bw.write(p.getName() + " --- " + piece.getLetter() + (char)(c1.xc + 97) + (8 - c1.yc));
 		 bw.write("\n");
 		 bw.close();

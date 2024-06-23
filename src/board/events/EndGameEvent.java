@@ -1,7 +1,14 @@
 package board.events;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import board.BoardGame;
+import board.Movements;
+import player.Player;
 import playsounds.Sounds;
+import java.io.*;
 
 /**
  * Evento para ser chamado ao fim do jogo
@@ -16,7 +23,7 @@ public class EndGameEvent{
 	 * Construtor da Classe
 	 * @param b BoardGame - Recebe o tabuleiro como parâmetro o evento
 	 */
-	public EndGameEvent(BoardGame b) {
+	public EndGameEvent(Player p) {
 		
 		eventListener = new EventListener();
 		
@@ -35,6 +42,12 @@ public class EndGameEvent{
 				} 
 				BoardGame.setGame(false); // Parar o jogo
 				BoardGame.stopTimers(); // Parar o tabuleiro
+				try {
+					printVencedor(p);
+				}
+				catch (IOException e){
+					System.out.println("erro ao gravar o vencedor");
+				}
 				
 				// BoardGame.newGame(b);
 				
@@ -51,4 +64,12 @@ public class EndGameEvent{
 	public Event event(){
 		return this.event;
 	}
+	
+    private void printVencedor(Player p) throws IOException{
+    	System.out.println("Vencedor: " + p.getName());
+		BufferedWriter bw = new BufferedWriter(new FileWriter("logs/" + Movements.match + ".txt", true));
+		bw.write("\n");
+		bw.write("Vencedor: "+ p.getName());
+		bw.close();
+    }
 }

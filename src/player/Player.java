@@ -6,14 +6,14 @@ import board.Square;
 import board.events.*;
 import colors.Cores;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 
 import pieces.King;
 import pieces.Pawn;
 import playsounds.Sounds;
-
-
 /** Classe para manipular os jogadores do jogo de Xadrez 
  * @version 1.2
  */
@@ -88,11 +88,6 @@ public class Player {
             
         	if(possible) {
         		
-        		/** Verifica se a casa não está vazia e é um rei, para chamar o evento
-        		 * {@link board.events.EndGameEvent}
-        		 */
-        		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class)EventListener.Trigger(new EndGameEvent(t).event());
-        		
         		try {
         			/** {@link playsounds.Sounds#onMove()}
         			 *  {@link playsounds.Sounds#onCapture()}
@@ -104,6 +99,17 @@ public class Player {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+        		
+        		/** Verifica se a casa não está vazia e é um rei, para chamar o evento
+        		 * {@link board.events.EndGameEvent}
+        		 */
+        		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class) {
+        			EventListener.Trigger(new EndGameEvent(this).event());
+        			
+        		}
+        		
+        		
+        	
         		
         		// Permutação simples para mover a peça de uma casa para outra
         		sq2.updatePiece(sq1.getPiece());
@@ -139,7 +145,7 @@ public class Player {
         	if(p1.checkEat(sq1.getCoords(), sq2.getCoords())) {
         			
         		if(sq2.getPiece().getClass() == King.class) { // Se o peão comeu o rei
-            		EventListener.Trigger(new EndGameEvent(t).event());
+            		EventListener.Trigger(new EndGameEvent(this).event());
             	}
         		try {
         			/** {@link playsounds.Sounds#onCapture()} */
@@ -158,5 +164,6 @@ public class Player {
         	}
         	return false;  	
     }
+    
             
 }
