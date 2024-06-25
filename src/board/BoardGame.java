@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -36,7 +35,7 @@ public class BoardGame extends JFrame{
 	private JPanel contentPane;
 	private Square[][] board;
 	
-	private int turn = 0; // Turnos alternando para verificar de quem é a vez de jogar
+	private static int turn = 0; // Turnos alternando para verificar de quem é a vez de jogar
 	private Player[] players; // Jogadores
 	
 	private static boolean leftClicked = false;
@@ -57,13 +56,15 @@ public class BoardGame extends JFrame{
 		this.setVisible(true);
 		this.setResizable(false);
 		this.setTitle("BongasChess");
+		this.setBounds(0, 0, 1050, 868);
+		this.setLocationRelativeTo(null);
 		
 		this.players = players;
 		game = true; // Jogo rolando
 		this.board = new Square[8][8];
         
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1050, 868);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -292,6 +293,18 @@ public class BoardGame extends JFrame{
         return false;
     }
 	
+	public Square getSquare(Coords<Integer, Integer> c) {
+		return board[c.xc][c.yc];
+	}
+	
+	public void addPanel(JPanel panel) {
+		panel.setBounds(0, 0, 200, 200);
+		panel.setVisible(true);
+		contentPane.add(panel);
+		
+		super.repaint();
+	}
+	
 	
 	/**
 	 * retorna o próprio BoardGame, criado para implementar no MouseListener
@@ -304,7 +317,7 @@ public class BoardGame extends JFrame{
 	/**
 	 * Função para alterar o timer entre o jogador 1 e o jogador 2
 	 */
-	private void switchTimer() {
+	public static void switchTimer() {
 		
 		
 		if(!game) return; // Se não tiver o jogo acontecendo, retorna
@@ -444,21 +457,8 @@ public class BoardGame extends JFrame{
 	}
 	
 	
-	/** Função para iniciar novo jogo, não está funcionando
-	 * @deprecated
-	 * */
-	public static void newGame(BoardGame b) {
-		
-		System.out.println("Iniciar novo Jogo? 1 - Sim  2 - Não");
-		
-		Scanner sc = new Scanner(System.in);
-		int x = 0;
-		
-		while(x != 1 || x != 2) x = sc.nextInt();
-		
-		if(x == 1)b.restartBoard();
-		
-		sc.close();
+	public Player[] getPlayers() {
+		return this.players;
 	}
 	
 	/** Função de pausar os dois timers */
@@ -475,5 +475,10 @@ public class BoardGame extends JFrame{
 			System.out.println(e);
 		}
 	}
+	
+	public static void resetTurn() {
+		turn = 0;
+	}
+	
 }
 

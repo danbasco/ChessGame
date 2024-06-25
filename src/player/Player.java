@@ -1,6 +1,7 @@
 package player;
 import board.BoardGame;
 import board.Coords;
+import board.Movements;
 import board.Square;
 import board.events.*;
 import colors.Cores;
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 import pieces.King;
 import pieces.Pawn;
 import playsounds.Sounds;
-
-
 /** Classe para manipular os jogadores do jogo de Xadrez 
  * @version 1.2
  */
@@ -64,7 +63,7 @@ public class Player {
         if(sq1.getCoords() != sq2.getCoords()) { // O jogador é forçado a sair da casa
             
         	/** ArrayList com todos os movimentos possíveis */
-        	ArrayList<Coords<Integer, Integer>> possibleMoves = sq1.getPiece().allMoves(sq1.getCoords(), sq2.getCoords());
+        	ArrayList<Coords<Integer, Integer>> possibleMoves = sq1.getPiece().allMoves(sq1.getCoords(), sq2.getCoords(), t);
         	
         	
         	if(possibleMoves != null) {
@@ -87,21 +86,28 @@ public class Player {
             
         	if(possible) {
         		
-        		/** Verifica se a casa não está vazia e é um rei, para chamar o evento
-        		 * {@link board.events.EndGameEvent}
-        		 */
-        		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class)EventListener.Trigger(new EndGameEvent(t).event());
-        		
         		try {
         			/** {@link playsounds.Sounds#onMove()}
         			 *  {@link playsounds.Sounds#onCapture()}
         			 */
         			if(sq2.getPiece() != null)Sounds.onCapture();
         			else Sounds.onMove();
+        			Movements.gravaDisco(this, sq1.getPiece(), sq2.getCoords());
         			
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+        		
+        		/** Verifica se a casa não está vazia e é um rei, para chamar o evento
+        		 * {@link board.events.EndGameEvent}
+        		 */
+        		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class) {
+        			EventListener.Trigger(new EndGameEvent(this, t).event());
+        			
+        		}
+        		
+        		
+        	
         		
         		// Permutação simples para mover a peça de uma casa para outra
         		sq2.updatePiece(sq1.getPiece());
@@ -134,10 +140,10 @@ public class Player {
         	Pawn p1 = (Pawn)sq1.getPiece(); // Downcasting
         	
         	/** Verifica se é válido para o peão comer a peça na casa designada*/
-        	if(p1.checkEat(sq1.getCoords(), sq2.getCoords())) {
+        	if(p1.checkEat(sq1.getCoords(), sq2.getCoords(), t)) {
         			
         		if(sq2.getPiece().getClass() == King.class) { // Se o peão comeu o rei
-            		EventListener.Trigger(new EndGameEvent(t).event());
+            		EventListener.Trigger(new EndGameEvent(this, t).event());
             	}
         		try {
         			/** {@link playsounds.Sounds#onCapture()} */
@@ -156,5 +162,6 @@ public class Player {
         	}
         	return false;  	
     }
+    
             
 }

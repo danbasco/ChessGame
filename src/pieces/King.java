@@ -1,6 +1,7 @@
 package pieces;
 import javax.swing.ImageIcon;
 
+import board.BoardGame;
 import board.Coords;
 import colors.*;
 import menu.Menu;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 
 /** Classe do Rei */
 public class King extends Piece{
+	
+	private char Letter = 'K';
     
 	private static final long serialVersionUID = 1L;
 	
@@ -45,7 +48,7 @@ public class King extends Piece{
 
 
 	@Override
-	public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
+	public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2, BoardGame t) {
 		
 		ArrayList<Coords<Integer, Integer>> possibleMoves = new ArrayList<>();
 		if(checkMove(c1, c2)) {
@@ -54,5 +57,11 @@ public class King extends Piece{
 		
 		return null;
 		
+	}
+
+
+	@Override
+	public char getLetter() {
+		return Letter;
 	}
 }
