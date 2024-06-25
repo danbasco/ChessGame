@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import board.BoardGame;
 import board.Coords;
 import colors.*;
 
@@ -61,7 +62,7 @@ public abstract class Piece extends JLabel{ // Todas as peças possuem uma JLabe
      * @param c2 Coords<Integer, Integer> - Coordenada Final
      * @return ArrayList<Coords<Integer, Integer>>
      */
-    abstract public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2);
+    abstract public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2, BoardGame t);
     
     
 }

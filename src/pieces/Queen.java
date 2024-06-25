@@ -1,6 +1,7 @@
 package pieces;
 import javax.swing.ImageIcon;
 
+import board.BoardGame;
 import board.Coords;
 import colors.*;
 import menu.Menu;
@@ -47,7 +48,7 @@ public class Queen extends Piece{
 
 
 	@Override
-	public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2) {
+	public ArrayList<Coords<Integer, Integer>> allMoves(Coords<Integer, Integer> c1, Coords<Integer, Integer> c2, BoardGame t) {
 		
 		ArrayList<Coords<Integer, Integer>> possibleMoves = new ArrayList<>();
 		

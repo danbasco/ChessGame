@@ -33,10 +33,11 @@ public class Start extends JFrame implements MouseListener{
 	Start(){
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 712, 738); // Tamanho do Menu
+		this.setBounds(0, 0, 712, 738); // Tamanho do Menu
 		
 		this.setVisible(true);
 		this.setResizable(false);
+		this.setLocationRelativeTo(null);
 		
 		// Jpanel para iniciar o jogo
 		start = new JPanel();

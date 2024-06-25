@@ -6,8 +6,6 @@ import board.Square;
 import board.events.*;
 import colors.Cores;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
 
@@ -65,7 +63,7 @@ public class Player {
         if(sq1.getCoords() != sq2.getCoords()) { // O jogador é forçado a sair da casa
             
         	/** ArrayList com todos os movimentos possíveis */
-        	ArrayList<Coords<Integer, Integer>> possibleMoves = sq1.getPiece().allMoves(sq1.getCoords(), sq2.getCoords());
+        	ArrayList<Coords<Integer, Integer>> possibleMoves = sq1.getPiece().allMoves(sq1.getCoords(), sq2.getCoords(), t);
         	
         	
         	if(possibleMoves != null) {
@@ -104,7 +102,7 @@ public class Player {
         		 * {@link board.events.EndGameEvent}
         		 */
         		if(sq2.getPiece() != null && sq2.getPiece().getClass() == King.class) {
-        			EventListener.Trigger(new EndGameEvent(this).event());
+        			EventListener.Trigger(new EndGameEvent(this, t).event());
         			
         		}
         		
@@ -142,10 +140,10 @@ public class Player {
         	Pawn p1 = (Pawn)sq1.getPiece(); // Downcasting
         	
         	/** Verifica se é válido para o peão comer a peça na casa designada*/
-        	if(p1.checkEat(sq1.getCoords(), sq2.getCoords())) {
+        	if(p1.checkEat(sq1.getCoords(), sq2.getCoords(), t)) {
         			
         		if(sq2.getPiece().getClass() == King.class) { // Se o peão comeu o rei
-            		EventListener.Trigger(new EndGameEvent(this).event());
+            		EventListener.Trigger(new EndGameEvent(this, t).event());
             	}
         		try {
         			/** {@link playsounds.Sounds#onCapture()} */
